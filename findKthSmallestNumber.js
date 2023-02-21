@@ -3,11 +3,11 @@
  * @Author: JunLiangWang
  * @Date: 2023-02-21 17:45:33
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-02-21 18:06:59
+ * @LastEditTime: 2023-02-21 18:10:29
  */
 
 /**
- * @description: 二分查找方式
+ * @description: 二分查找方式   TC:O(log(m+n))  SC:O(1)
  * @author: JunLiangWang
  * @param {*} k   查找第k小的数字
  * @param {*} array1 有序数组1
