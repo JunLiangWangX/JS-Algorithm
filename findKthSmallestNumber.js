@@ -3,7 +3,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-02-21 17:45:33
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-02-21 18:27:05
+ * @LastEditTime: 2023-02-21 22:51:42
  */
 
 /**
@@ -33,6 +33,34 @@ function mergeArray(k,array1,array2){
    for(let i=array2Index;i<array2.length;i++)
    {
       mergeArray.push(array2[i])
+   }
+   return mergeArray[k-1]
+}
+
+/**
+ * @description: 合并数组(k个元素)  TC:O(k)  SC:O(k)
+ * @author: JunLiangWang
+ * @param {*} k       查找第k小的数字
+ * @param {*} array1  有序数组1
+ * @param {*} array2  有序数组2
+ * @return {*}
+ */
+function mergePartOfArray(k,array1,array2){
+   let mergeArray=[]
+   let array1Index=0
+   let array2Index=0
+   for(let i=0;i<k;i++)
+   {
+      if(array1[array1Index]>array2[array2Index])
+      {
+         mergeArray.push(array2[array2Index])
+         array2Index++
+      }
+      else
+      {
+        mergeArray.push(array1[array1Index])
+        array1Index++
+      }
    }
    return mergeArray[k-1]
 }
