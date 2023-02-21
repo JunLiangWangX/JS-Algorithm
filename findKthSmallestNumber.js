@@ -3,8 +3,40 @@
  * @Author: JunLiangWang
  * @Date: 2023-02-21 17:45:33
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-02-21 18:10:29
+ * @LastEditTime: 2023-02-21 18:25:37
  */
+
+/**
+ * @description: 合并数组方式  TC:O(m+n)  SC:O(m+n)
+ * @author: JunLiangWang
+ * @param {*} k
+ * @param {*} array1
+ * @param {*} array2
+ * @return {*}
+ */
+function mergeArray(k,array1,array2){
+   let mergeArray=new Array()
+   let array2Index=0
+   for(let i=0;i<array1.length;i++)
+   {
+      if(array2[array2Index]!=undefined&&array1[i]>array2[array2Index])
+      {
+         mergeArray.push(array2[array2Index])
+         array2Index++
+         i--
+      }
+      else
+      {
+        mergeArray.push(array1[i])
+      }
+   }
+   for(let i=array2Index;i<array2.length;i++)
+   {
+      mergeArray.push(array2[i])
+   }
+   return mergeArray[k-1]
+}
+
 
 /**
  * @description: 二分查找方式   TC:O(log(m+n))  SC:O(1)
