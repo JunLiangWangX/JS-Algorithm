@@ -3,15 +3,15 @@
  * @Author: JunLiangWang
  * @Date: 2023-02-21 17:45:33
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-02-21 18:25:37
+ * @LastEditTime: 2023-02-21 18:27:05
  */
 
 /**
  * @description: 合并数组方式  TC:O(m+n)  SC:O(m+n)
  * @author: JunLiangWang
- * @param {*} k
- * @param {*} array1
- * @param {*} array2
+ * @param {*} k       查找第k小的数字  
+ * @param {*} array1  有序数组1
+ * @param {*} array2  有序数组2
  * @return {*}
  */
 function mergeArray(k,array1,array2){
@@ -41,7 +41,7 @@ function mergeArray(k,array1,array2){
 /**
  * @description: 二分查找方式   TC:O(log(m+n))  SC:O(1)
  * @author: JunLiangWang
- * @param {*} k   查找第k小的数字
+ * @param {*} k      查找第k小的数字
  * @param {*} array1 有序数组1
  * @param {*} array2 有序数组2
  * @return {*}
