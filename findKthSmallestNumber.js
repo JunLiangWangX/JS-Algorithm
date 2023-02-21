@@ -1,9 +1,9 @@
 /*
- * @Description: 在两个有序数组中寻找k位置大小的数
+ * @Description: 在两个有序(降序)数组中寻找k位置大小的数
  * @Author: JunLiangWang
  * @Date: 2023-02-21 17:45:33
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-02-21 22:51:42
+ * @LastEditTime: 2023-02-21 22:54:36
  */
 
 /**
