@@ -3,7 +3,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-02-21 17:45:33
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-02-21 22:54:36
+ * @LastEditTime: 2023-02-22 11:02:44
  */
 
 /**
@@ -67,7 +67,7 @@ function mergePartOfArray(k,array1,array2){
 
 
 /**
- * @description: 二分查找方式   TC:O(log(m+n))  SC:O(1)
+ * @description: 二分查找方式   TC:O(log(k))  SC:O(1)
  * @author: JunLiangWang
  * @param {*} k      查找第k小的数字
  * @param {*} array1 有序数组1
