@@ -3,7 +3,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-02-22 11:00:23
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-02-24 11:16:01
+ * @LastEditTime: 2023-02-25 10:08:22
  */
 
 /**
@@ -136,4 +136,43 @@ function dp(s){
      }
    }
    return s.substring(start,end)
+}
+
+
+/**
+ * @description: Manacher   TC:O(n) SC:O(n)
+ * @author: JunLiangWang
+ * @param {*} s 输入字符串
+ * @return {*}
+ */
+function manacher(s){
+  if (s.length < 2) return s
+
+  const arr = s.split('').reduce((pre, cur) => {
+    pre.push('#', cur)
+    return pre
+  }, [])
+  arr.push('#')
+
+  const [start, length] = get_d(arr)
+  return s.slice(start, start + length)
+
+  function get_d(arr, n = arr.length - 1) {
+    let d = new Array(n).fill(1)
+    for (let i = 2, l, r = 1; i <= n; i++) {
+      if (i <= r) d[i] = Math.min(d[r - i + l], r - i + 1)
+
+      while (arr[i - d[i]] && arr[i + d[i]] && arr[i - d[i]] === arr[i + d[i]])
+        d[i]++
+
+      if (i + d[i] - 1 > r) {
+        l = i - d[i] + 1
+        r = i + d[i] - 1
+      }
+    }
+    let length = Math.max(...d) - 1
+    let start = (d.indexOf(length + 1) - length) / 2
+
+    return [start, length]
+  }
 }
