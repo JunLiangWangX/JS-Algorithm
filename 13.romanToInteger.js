@@ -3,7 +3,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-03-09 09:21:31
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-03-09 09:29:52
+ * @LastEditTime: 2023-03-09 09:36:44
  */
 
 
@@ -22,7 +22,7 @@ function normal(s)
     //上一次数值大小，用于比对
     let last=0
     // 从字符串最后开始，因为roman字符串一般为降序
-    for(const i=s.length-1;i>=0;i--)
+    for(let i=s.length-1;i>=0;i--)
     {
         const value=mark[s[i]]
         // 当为降序规则，则为加法
