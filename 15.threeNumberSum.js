@@ -5,7 +5,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-03-11 15:32:41
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-03-11 15:43:33
+ * @LastEditTime: 2023-03-11 16:03:54
  */
 
 
@@ -17,25 +17,25 @@
  */
 function bruteForce(nums){
     // 将数组进行排序
-    let inArray=nums.sort((a,b)=>a-b)
+    nums.sort((a,b)=>a-b)
     let outArray=[]
-    for(let i=0;i<nums.length;i++)
+    for(let i=0;i<inArray.length;i++)
     {
         // 当i不等于0且当前数字等于上一个数字时，该数字在上轮循环中已得出结果，为避免重复则跳过
-        if(i!=0&&nums[i]==nums[i-1])continue
-        for(let j=i+1;j<nums.length;j++)
+        if(i!=0&&inArray[i]==inArray[i-1])continue
+        for(let j=i+1;j<inArray.length;j++)
         {
             // 同上
-            if(j!=i+1&&nums[j]==nums[j-1])continue
-            for(let k=j+1;k<nums.length;k++)
+            if(j!=i+1&&inArray[j]==inArray[j-1])continue
+            for(let k=j+1;k<inArray.length;k++)
             {
                //同上
-               if(k!=j+1&&nums[k]==nums[k-1])continue
+               if(k!=j+1&&inArray[k]==inArray[k-1])continue
                //当三数字结果相加等于0，添加到输出数组
-               if(nums[i]+nums[j]+nums[k]==0)
-               outArray.push([nums[i],nums[j],nums[k]])
+               if(inArray[i]+inArray[j]+inArray[k]==0)
+               outArray.push([inArray[i],inArray[j],inArray[k]])
             }
         }
     }
-    return inArray
+    return outArray
 }
