@@ -3,7 +3,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-03-14 10:38:32
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-03-14 11:04:42
+ * @LastEditTime: 2023-03-14 11:09:51
  */
 
 
@@ -34,20 +34,20 @@ function recursion(digits) {
     /**
      * @description: 回溯函数
      * @author: JunLiangWang
-     * @param {*} cuString  当前字母组合字符串
+     * @param {*} cuString  上一次字母组合字符串
      * @param {*} index     当前遍历到的digits索引
      * @return {*}
      */    
     var backtrack=function(cuString,index){
-        // 如果遍历完成digits所有字符，则向记录数组添加字母组合的字符串
+        // 如果遍历完成digits所有字符，则向记录数组添加上一次字母组合的字符串
         if(index==digits.length)recordArray.push(cuString)
         // 如果没有，则找出当前电话号码对应的字母进行遍历(mark[number-1]，
         // 例子：电话号码2，对应mark[2-1]=['a', 'b', 'c'])，并继续调用
-        // 回溯函数(参数1：上次已组合的字母+这次对应的字母，参数2：索引+1)
+        // 回溯函数(参数1：上一次字母组合的字符串+这次对应的字母，参数2：索引+1)
         // 直到遍历完成digits为止
         else mark[digits[index]-1].map((word)=>backtrack(cuString+word,index+1))
     }
-    // 调用回溯数组
+    // 调用回溯函数
     backtrack('',0)
     // 返回结果
     return recordArray
