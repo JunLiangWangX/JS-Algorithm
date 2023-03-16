@@ -3,15 +3,15 @@
  * @Author: JunLiangWang
  * @Date: 2023-03-16 23:01:55
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-03-16 23:37:21
+ * @LastEditTime: 2023-03-17 00:13:16
  */
 
 
 /**
  * @description: 计算长度方式   TC:O(L+n)  SC:O(1)
  * @author: JunLiangWang
- * @param {*} head
- * @param {*} n
+ * @param {*} head  链表首个元素
+ * @param {*} n     删除倒数第n个节点
  * @return {*}
  */
 function countLength(head,n)
@@ -56,6 +56,45 @@ function countLength(head,n)
     }
     // 赋值上一个节点的下一个节点为当前节点的下一个节点即可删除该节点
     lastNode.next=node.next
+    // 返回头
+    return head
+}
+
+/**
+ * @description: 双指针   TC:O(L)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} head  链表首个元素
+ * @param {*} n     删除第n个节点
+ * @return {*}
+ */
+function doublePoint(head,n)
+{
+    /**
+     * 双指针，利用左右两个指针构成一个区间，其区间差值则为n-1，不断移动该区间，
+     * 当右指针到达链表尾部时，其左指针位置正好为倒数第n个元素
+     */
+    // 左右两指针初值都为首个元素
+    let leftPoint=head
+    let rigthPoint=head
+    // 将右指针移动n-1个节点，由于初值为首个节点，即移动到位置n的节点，
+    while(--n)
+    {
+        rigthPoint=rigthPoint.next
+    }
+    // 上一个节点初值为空
+    let lastNode=null
+    // 不断移动左右两指针，当右指针到达最后一个元素时，左指针所指的元素则为倒数第n个元素
+    while(rigthPoint.next)
+    {
+        rigthPoint=rigthPoint.next
+        lastNode=leftPoint
+        leftPoint=leftPoint.next
+    }
+    // 如果上一个节点为初值，则证明并未移动区间则到达了最后一个元素，因此则是删除第一个元素
+    // 直接返回head的下一个元素即可
+    if(lastNode==null)return head.next
+    // 赋值上一个节点的下一个节点为当前节点的下一个节点即可删除该节点
+    lastNode.next=leftPoint.next
     // 返回头
     return head
 }
