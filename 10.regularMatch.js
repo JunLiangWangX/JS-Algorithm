@@ -6,10 +6,16 @@
  * @Author: JunLiangWang
  * @Date: 2023-03-06 22:04:28
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-03-06 22:44:58
+ * @LastEditTime: 2023-03-18 13:48:17
  */
 
-
+/**
+ * @description: 动态规划   TC:O(n^2)  SC:O(n^2)
+ * @author: JunLiangWang
+ * @param {*} s  需要匹配的字符串
+ * @param {*} p  字符串规则
+ * @return {*}
+ */
 function dp(s,p){
     let DPArray=new Array(s.length+1).fill(0).map(()=>new Array(p.length+1).fill(false))
     // 由于当两字符为空时(长度为0)，因也判断为匹配，所以重置[0][0]位置为true，其余为false
