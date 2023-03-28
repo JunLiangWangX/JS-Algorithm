@@ -3,7 +3,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-03-28 11:06:06
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-03-28 15:05:24
+ * @LastEditTime: 2023-03-28 15:15:26
  */
 
 
@@ -127,6 +127,12 @@ function horizontalCompare(lists){
     return outList;
 }
 
+/**
+ * @description: 二分法    TC:O(nlogn)  SC:O(n^2)
+ * @author: JunLiangWang
+ * @param {*} lists
+ * @return {*}
+ */
 function binary(lists){
     /**
      * 该方案运用二分法，是在横向比对的基础上进行改进的，横向比对
