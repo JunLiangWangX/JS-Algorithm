@@ -1,9 +1,9 @@
 /*
- * @Description: 
+ * @Description: 合并K个升序链表
  * @Author: JunLiangWang
  * @Date: 2023-03-28 11:06:06
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-03-28 11:30:13
+ * @LastEditTime: 2023-03-28 11:37:34
  */
 
 
@@ -35,7 +35,7 @@ function longitudinalCompare(lists) {
     const PRE_HEAD = new ListNode();
     let head = PRE_HEAD;
     // 如果原链表数量还大于1，证明仍有需要比较的元素，反之则证明
-    // 比较完成，此时跳出循环
+    // 比较完成，此时跳出循环，将剩余元素添加到新链表即可
     while (lists.length > 1) {
         // 当前最小的元素初始化为第0条链表的首元素
         let minIndex = 0;
@@ -52,5 +52,8 @@ function longitudinalCompare(lists) {
         // 如果不存在，则删除该链表
         else lists.splice(minIndex, 1);
     }
+    // 将剩余元素添加到新链表
+    head.next=lists[0];
+    // 返回结果
     return PRE_HEAD.next;
 }
