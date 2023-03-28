@@ -3,7 +3,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-03-28 11:06:06
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-03-28 14:50:50
+ * @LastEditTime: 2023-03-28 15:05:24
  */
 
 
@@ -125,4 +125,75 @@ function horizontalCompare(lists){
     }
     //返回结果
     return outList;
+}
+
+function binary(lists){
+    /**
+     * 该方案运用二分法，是在横向比对的基础上进行改进的，横向比对
+     * 是逐条比对合并，而该方案则是两两比对合并，并合后又两两比对
+     * 合并，直至剩余一条链表为止
+     */
+    
+    // 没有需要比对的链表，直接返回null
+    if(lists.length==0)return null;
+    /**
+     * @description: 合并两条升序链表为一条升序链表
+     * @author: JunLiangWang
+     * @param {*} list1 升序链表1
+     * @param {*} list2 升序链表2
+     * @return {*}
+     */    
+    function mergeTwoList(list1,list2)
+    {
+        // 定义一个新链表
+        const PRE_HEAD=new ListNode();
+        let head=PRE_HEAD;
+        // 如果list1或list2为空，则证明比对完成，
+        // 剩余链表元素直接赋值给新链表后续节点即可
+        while(list1&&list2)
+        {
+            // 如果链表1当前元素小于链表2当前元素
+            if(list1.val<list2.val)
+            {
+                // 将链表1的该元素添加到下一个节点
+                head.next=list1;
+                // 将链表1该元素删除，并将当前节点
+                // 变为下一个节点
+                list1=list1.next;
+            }
+            // 反之操作链表2该元素
+            else
+            {
+                head.next=list2;
+                list2=list2.next;
+            }
+            // 将新链表的当前节点变为下一个节点
+            head=head.next;
+        }
+        // 将剩余链表元素赋值给新链表的下一个节点
+        // 如果是list1不为空，证明list2是为空的
+        // 此时将list1后续节点赋值给新链表即可
+        // 反之亦然。
+        head.next=list1?list1:list2;
+        // 返回新链表
+        return PRE_HEAD.next;
+    }
+    // 当链表剩余一条则证明比对完成，反之则仍需继续比对合并
+    while(lists.length>1)
+    {
+       // 定义一个新数组，装载比对合并后的链表
+       let tempList=[];
+       let i=0;
+       // 两两比对合并链表，将结果添加到新数组中
+       for(;i<lists.length;i+=2)
+       {
+         tempList.push(mergeTwoList(lists[i],lists[i+1]));
+       }
+       // 如果链表长度为奇数，则需要将剩余一条未比对合并的链表添加到新数组中
+       if(lists.length!=i)tempList.push(lists[i]);
+       // 将本次比对合并的结果赋值给lists，如果lists仅剩一条，则证明比对完成
+       // 反之继续比对合并
+       lists=tempList;
+    }
+    return lists[0];
 }
