@@ -3,7 +3,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-04-13 08:55:11
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-04-13 10:23:30
+ * @LastEditTime: 2023-04-13 11:15:30
  */
 
 
@@ -106,28 +106,109 @@ function similarDichotomy(dividend, divisor) {
     // 3.利用倍增逼近dividend
 
     // 初始化商为0
-    let quotient=0;
+    let quotient = 0;
     // 此处divisor/dividend为负数，因此dividend>divisor则证明|dividend|<|divisor|
     // 被除数已小于除数，超出了范围，此时跳出循环
-    while (divisor>=dividend) {
-       let tempSum = divisor,tempQuotient = 1;
+    while (divisor >= dividend) {
+        let tempSum = divisor,
+            tempQuotient = 1;
 
-       // 使用divisor倍增，找到能逼近dividend的最大数
-       // while (tempSum << 1 >= dividend)  倍增除了左移，也可使用+本身来实现
-       while(tempSum+tempSum>=dividend)
-       {
+        // 使用divisor倍增，找到能逼近dividend的最大数
+        // while (tempSum << 1 >= dividend)  倍增除了左移，也可使用+本身来实现
+        while (tempSum + tempSum >= dividend) {
             // tempSum = tempSum << 1; 倍增除了左移，也可使用+本身来实现
-            tempSum+=tempSum
+            tempSum += tempSum
             // tempQuotient= tempQuotient<<1; 倍增除了左移，也可使用+本身来实现
-            tempQuotient+=tempQuotient
+            tempQuotient += tempQuotient
         }
         // 减去已找到的倍增逼近的最大数
-        dividend-=tempSum;
+        dividend -= tempSum;
         // 加上倍增的商
-        quotient+=tempQuotient;
+        quotient += tempQuotient;
     }
 
 
     // 加上符号返回结果
     return isNegativeNumber ? -quotient : quotient;
+}
+
+/**
+ * @description: 类二分优化   TC:O(logN)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} dividend
+ * @param {*} divisor
+ * @return {*}
+ */
+function similarDichotomyOptimization(dividend, divisor) {
+
+    /**
+     * 上述类二分也有可以继续优化的地方，我们看上述方案的逼近代码：
+       while (divisor>=dividend) {
+          let tempSum = divisor,tempQuotient = 1;
+          while(tempSum+tempSum>=dividend)
+          {
+            tempSum+=tempSum
+            tempQuotient+=tempQuotient
+        }
+        dividend-=tempSum;
+        quotient+=tempQuotient;
+       }
+       我们可以看到，tempSum每次逼近dividend，我们都是从divisor开始不断递增的，其实
+       如果我们一开始就找到能逼近dividend的divisor倍增的最大值，然后每次逼近再不断
+       倍增递减该值，就可以避免重复找能逼近dividend的divisor倍增的最大值的过程
+    */
+
+    // 1.处理一些特殊情况
+
+    // 如果被除数为0，则直接返回0
+    if (dividend === 0) return 0
+    // 如果除数为0，则直接返回null
+    if (divisor === 0) return null
+    // 如果除数为1，则直接返回被除数
+    if (divisor === 1) return dividend
+    // 如果除数为-1，则返回-被除数，当被除数等于负数最大值(-2147483648)时，转为正时
+    // 为2147483648数值溢出，此时应该返回正数最大值2147483647，当被除数等于正数最大
+    // 值(2147483647)时，转为负数则不存在溢出
+    if (divisor === -1) return dividend == -2147483648 ? 2147483647 : -dividend
+
+    // 2.处理符号，且将除数/被除数全转为负数处理
+
+    // 是否为负数，初始化为false
+    let isNegativeNumber = false;
+    // 将除数/被除数全部转为负数处理(由于正数转负数不存在溢出问题，而负数转正数则存在溢出，
+    // 因此才全部将其转换为负数处理)，并用变量(isNegativeNumber)记录最终结果为正or负数。
+    if (dividend >= 0) dividend = -dividend;
+    else isNegativeNumber = !isNegativeNumber;
+    if (divisor >= 0) divisor = -divisor;
+    else isNegativeNumber = !isNegativeNumber;
+
+    // 3.找到能逼近dividend的divisor倍增的最大值
+    let tempQuotient=1,tempSum=divisor;
+    while(tempSum+tempSum>=dividend)
+    {
+        tempSum+=tempSum;
+        tempQuotient+=tempQuotient;
+    }
+
+    // 4.利用倍增逼近dividend
+    let quotient = 0;
+    // 此处divisor/dividend为负数，因此dividend>divisor则证明|dividend|<|divisor|
+    // 被除数已小于除数，超出了范围，此时跳出循环
+    while (divisor >= dividend) {
+        // 此处tempSum/dividend为负数，因此tempSum<dividend则证明|tempSum|>|dividend|
+        // 此时最大逼近数已大于除数，我们则需要倍增递减tempSum，直到找到dividend的最大逼近
+        // 数
+        while (tempSum < dividend) {
+            tempSum=tempSum>>1;
+            tempQuotient=tempQuotient>>1;
+         }
+        // 减去已找到的倍增逼近的最大数
+        dividend -= tempSum;
+        // 加上倍增的商
+        quotient += tempQuotient;
+    }
+
+    // 加上符号返回结果
+    return isNegativeNumber ? -quotient : quotient;
+
 }
