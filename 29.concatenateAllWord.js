@@ -1,9 +1,10 @@
 /*
- * @Description: 串联所有单词的子串
+ * @Description: 给定一个字符串s和一个字符串数组words，返回所有串联字串（串联子串指一个包含words
+                 中所有字符串以任意顺序排列连接起来的子串）在s中的开始索引。
  * @Author: JunLiangWang
  * @Date: 2023-04-14 15:52:17
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-04-14 16:27:46
+ * @LastEditTime: 2023-04-14 16:35:40
  */
 
 
