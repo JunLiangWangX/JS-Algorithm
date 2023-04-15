@@ -4,7 +4,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-04-15 10:36:11
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-04-15 11:12:11
+ * @LastEditTime: 2023-04-15 11:21:53
  */
 
 
@@ -37,9 +37,9 @@ function quickSort(nums){
      */
     function swap(i,j)
     {
-        let temp=nums[i]
-        nums[i]=nums[j]
-        nums[j]=temp
+        let temp=nums[i];
+        nums[i]=nums[j];
+        nums[j]=temp;
     }
 
     // 初始化更小值指针为最后一个元素
@@ -74,8 +74,8 @@ function quickSort(nums){
     // 等于0，则是将数组全部元素从降序变为升序
     while(smallerPoint<tempPoint)
     {
-        swap(smallerPoint,tempPoint)
-        smallerPoint++
-        tempPoint--
+        swap(smallerPoint,tempPoint);
+        smallerPoint++;
+        tempPoint--;
     }
 }
