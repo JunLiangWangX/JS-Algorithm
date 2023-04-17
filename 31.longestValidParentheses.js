@@ -3,9 +3,16 @@
  * @Author: JunLiangWang
  * @Date: 2023-04-17 11:23:49
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-04-17 15:39:51
+ * @LastEditTime: 2023-04-17 17:29:24
  */
 
+
+/**
+ * @description: 动态规划   TC:O(n)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} s 输入字符串
+ * @return {*}
+ */
 function dp(s){
     /**
      * 该方案使用动态规划，有效括号总是以')'结尾的，以'('结尾的有效括号数量必定为0，
