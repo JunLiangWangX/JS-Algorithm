@@ -3,7 +3,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-04-17 11:23:49
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-04-17 17:31:02
+ * @LastEditTime: 2023-04-17 17:34:58
  */
 
 
@@ -54,6 +54,25 @@ function dp(s){
     // 返回数组最大值即为答案
     return Math.max(...dpArray);
 }
+
+
+function stack(s){
+    /**
+     * 该方案利用栈，初始化栈中元素为-1，每当遇到"("则入栈该字符位置索引，每当遇到")"则出栈，此时
+     */
+    let stack=[-1],parenthesisCount=0;
+    for(let i=0;i<s.length;i++)
+    {
+        if(s[i]=="(") stack.push(i);
+        else{
+            stack.pop();
+            if(stack.length==0)stack.push(i);
+            else parenthesisCount = Math.max(parenthesisCount, i - stack[stack.length-1]);
+        }
+    }
+    return parenthesisCount;
+}
+
 
 /**
  * @description: 贪心   TC:O(n)   SC:O(1)
