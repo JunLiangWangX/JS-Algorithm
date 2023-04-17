@@ -3,12 +3,12 @@
  * @Author: JunLiangWang
  * @Date: 2023-04-17 11:23:49
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-04-17 17:29:24
+ * @LastEditTime: 2023-04-17 17:31:02
  */
 
 
 /**
- * @description: 动态规划   TC:O(n)  SC:O(1)
+ * @description: 动态规划   TC:O(n)  SC:O(n)
  * @author: JunLiangWang
  * @param {*} s 输入字符串
  * @return {*}
