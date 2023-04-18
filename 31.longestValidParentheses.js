@@ -3,7 +3,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-04-17 11:23:49
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-04-17 17:34:58
+ * @LastEditTime: 2023-04-18 09:12:09
  */
 
 
@@ -55,21 +55,41 @@ function dp(s){
     return Math.max(...dpArray);
 }
 
-
+/**
+ * @description: 栈   TC:O(n)  SC:O(n)
+ * @author: JunLiangWang
+ * @param {*} s
+ * @return {*}
+ */
 function stack(s){
     /**
-     * 该方案利用栈，初始化栈中元素为-1，每当遇到"("则入栈该字符位置索引，每当遇到")"则出栈，此时
+     * 该方案利用栈，对于遇到的每个‘(’ ，我们将它的下标放入栈中。对于遇到的每个 ‘)’，
+     * 我们先弹出栈顶元素表示匹配了当前右括号：如果栈为空，说明当前的右括号为没有被
+     * 匹配的右括号，我们将其下标放入栈中来更新我们之前提到的「最后一个没有被匹配的
+     * 右括号的下标」如果栈不为空，当前右括号的下标减去栈顶元素即为「以该右括号为结
+     * 尾的最长有效括号的长度」需要注意的是，如果一开始栈为空，第一个字符为左括号的
+     * 时候我们会将其放入栈中，这样就不满足提及的「最后一个没有被匹配的右括号的下标」
+     * ，为了保持统一，我们在一开始的时候往栈中放入一个值为 −1 的元素。
      */
+    
+    // 初始化栈底为-1，有效括号数量为0
     let stack=[-1],parenthesisCount=0;
+    // 遍历字符串
     for(let i=0;i<s.length;i++)
     {
+        // 如果为左括号，则将其索引压入栈中
         if(s[i]=="(") stack.push(i);
+        // 如果为右括号
         else{
+            // 将栈顶元素弹出
             stack.pop();
+            // 如果弹出元素后，栈为空，则将当前索引添加
             if(stack.length==0)stack.push(i);
+            // 否则，计算有效括号长度，并记录
             else parenthesisCount = Math.max(parenthesisCount, i - stack[stack.length-1]);
         }
     }
+    // 返回结果
     return parenthesisCount;
 }
 
