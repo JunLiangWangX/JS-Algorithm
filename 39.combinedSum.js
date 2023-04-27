@@ -1,6 +1,7 @@
 /*
  * @Description: 给你一个无重复元素的整数数组candidates和一个目标整数target，
                   找出candidates中可以使数字和为目标数target的所有不同组合。
+                  candidates中的同一个数字可以无限制重复被选取。
  * @Author: JunLiangWang
  * @Date: 2023-04-26 08:51:18
  * @LastEditors: JunLiangWang
