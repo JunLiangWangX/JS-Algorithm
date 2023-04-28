@@ -4,7 +4,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-04-28 09:27:19
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-04-28 10:16:41
+ * @LastEditTime: 2023-04-28 12:21:20
  */
 
 
@@ -90,4 +90,69 @@ function binarySearchMethod(nums) {
     // 如果未出现则为结果
     while (++smallestPositiveInteger)
         if (binarySearch(smallestPositiveInteger) == -1) return smallestPositiveInteger;
+}
+
+
+/**
+ * @description: 置换法   TC:O(n)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} nums
+ * @return {*}
+ */
+function swapMethod(nums){
+    /**
+     * 该方案使用置换的方式，考虑nums数组长度为N，缺失的最小正整数范围必然在[1,N+1]的区间内，
+     * 我们假定数组元素是从1(最小正整数)开始连续递增的，例：[1,2,3.....N]，此时缺失的最小正
+     * 整数则为N+1，可以见得此时数组元素值=index(其索引)+1，可得出index(索引值)=元素值-1。
+     * 因此，我们可以根据index(索引值)=元素值-1，将无序的数组将其元素对号入座，构造为一个
+     * 从1(最小正整数)开始连续递增的数组，当我们从0遍历数组元素，发现其元素值不等于index(其索引)+1
+     * 则为缺失的最小正整数。
+     * 
+     * 对号入座过程：当前元素小于1此时元素不为正整数，无需置换
+     *              当前元素大于数组长度，此时元素计算出索引值已超出数组范围，也无需置换
+     *              当前元素等于index+1，此时元素位置正确，也无需置换
+     *              当前元素等于需要置换的元素，即nums[当前元素值-1]==当前元素，也无需置换，
+     *              否则，将当前元素放入正确位置(即index=元素值-1)，把当前元素与nums[元素值-1]元素交换位置
+     * 
+     * 例子：nums=[3,4,12,3,5,6]
+     *      对号入座： [3,6,12,3,4,5]
+     */
+
+    /**
+     * @description: 交换数组两个元素
+     * @author: JunLiangWang
+     * @param {*} index1  元素1索引
+     * @param {*} index2  元素2索引
+     * @return {*}
+     */    
+    function swap(index1,index2)
+    {
+        let temp=nums[index1];
+        nums[index1]=nums[index2];
+        nums[index2]=temp;
+    }
+
+    let i=0;
+    // 从0开始遍历数组，对号入座，置换元素
+    while(i<nums.length)
+    {
+        /**
+         * 对号入座过程：当前元素小于1此时元素不为正整数，无需置换
+         *              当前元素大于数组长度，此时元素计算出索引值已超出数组范围，也无需置换
+         *              当前元素等于index+1，此时元素位置正确，也无需置换
+         *              当前元素等于需要置换的元素，即nums[当前元素值-1]==当前元素，也无需置换，
+         *              否则，将当前元素放入正确位置(即index=元素值-1)，把当前元素与nums[元素值-1]元素交换位置
+         */
+        if(nums[i]<=0||nums[i]>nums.length||nums[i]-1==i||nums[nums[i]-1]==nums[i])i++;
+        else swap(i,nums[i]-1)
+    }
+    i=0;
+    //从0遍历数组元素，发现其元素值不等于index(其索引)+1， 则为缺失的最小正整数。
+    for(;i<nums.length;i++)
+    {
+        if(nums[i]!=i+1)return i+1;
+    }
+    // 没有元素值不等于index(其索引)+1，证明数组元素是从1(最小正整数)开始连续递增的
+    // 此时缺失的最小正整数则为数组长度+1
+    return nums.length+1
 }
