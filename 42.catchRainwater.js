@@ -3,7 +3,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-05-04 10:31:38
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-05-04 14:18:53
+ * @LastEditTime: 2023-05-04 16:17:51
  */
 
 
@@ -49,7 +49,7 @@ function bruteForce(height)
 /**
  * @description: 动态规划  TC:O(n)  SC:O(n)
  * @author: JunLiangWang
- * @param {*} height
+ * @param {*} height  给定数组
  * @return {*}
  */
 function dp(height){
@@ -97,4 +97,59 @@ function dp(height){
     }
     // 返回结果
     return maxRainWater;
+}
+
+
+/**
+ * @description: 双指针   TC:O(n)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} height  给定数组
+ * @return {*}
+ */
+function doublePoint(height){
+    /**
+     * 我们可以利用双指针，优化上述DP算法，使得空间复杂度降为O(1)，
+     * 上述DP算法我们可以看出：
+     *    对于i处左边最大值leftMax有:leftMax[i]<=leftMax[i+1]
+     *    对于i处右边最大值rightMax有:rightMax[i]<=rightMax[i-1]
+     *    该位置存水量为：min(leftMax[i],rightMax[i])-heihgt[i]
+     * 
+     * 我们可以利用双指针：
+     *    初始化左边最大元素为0，leftMax=0;
+     *    初始化左指针为第一个元素，leftPoint=1；
+     *    初始化右边最大元素为0，rightMax=0;
+     *    初始化右指针为最后一个元素，rightPoint=height.length-1；
+     *    计算左指针当前元素的左边最大元素，即：leftMax=Max(leftMax,height[leftPoint])
+     *    计算右指针当前元素的右边最大元素，即：rightMax=Max(rightMax,height[rightMax])
+     *    当leftMax<rightMax时，由于rightMax[i]<=rightMax[i-1]，因此左指针当前元素的
+     *    右边最大值肯定是大于左边最大值的，即：leftMax<rightMax[leftPoint]此时
+     *     min(leftMax,rightMax[leftPoint])=leftMax，该位置存水量即为leftMax-height[leftPoint]
+     *    反之rightMax<leftMax，由于leftMax[i]<=leftMax[i+1],因此右指针当前元素的右边最大值
+     *    肯定小于左边最大值，即：rightMax<leftMax[rightPoint]， 此时
+     *    min(rightMax,leftMax[rightPoint])=rightMax，该位置存水量即为rightMax-height[rightPoint]
+     * 
+     */  
+    let leftPoint=0,
+        leftMax=0,
+        rightPoint=height.length-1,
+        rightMax=0,
+        maxRainWater=0;
+    
+    while(leftPoint<rightPoint)
+    {
+        leftMax=Math.max(leftMax,height[leftPoint]);
+        rightMax=Math.max(rightMax,height[rightPoint]);
+        if(leftMax<rightMax)
+        {
+            maxRainWater+=leftMax-height[leftPoint];
+            leftPoint++;
+        }
+        else
+        {
+            maxRainWater+=rightMax-height[rightPoint];
+            rightPoint--;
+        }
+    }
+    return maxRainWater;
+        
 }
