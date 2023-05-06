@@ -7,7 +7,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-05-06 11:05:35
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-05-06 11:29:34
+ * @LastEditTime: 2023-05-06 11:44:06
  */
 
 
@@ -46,6 +46,45 @@ function greedy(nums){
                 // 增加步数
                 step++;
             }
+        }
+    }
+    // 返回结果
+    return step;
+}
+
+/**
+ * @description: 贪心优化  TC:O(n)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} nums  给定数组
+ * @return {*}
+ */
+function greedyOptimization(nums){
+    /**
+     * 如果我们「贪心」地进行正向查找，每次找到可到达的最远位置，就可以在线性时间内得到最少的跳跃次数。
+     * 我们维护当前能够到达的最大下标位置，记为边界。我们从左到右遍历数组，到达边界时，更新边界并将跳
+     * 跃次数增加 1。在遍历数组时，我们不访问最后一个元素，这是因为在访问最后一个元素之前，我们的边界
+     * 一定大于等于最后一个位置，否则就无法跳到最后一个位置了。如果访问最后一个元素，在边界正好为最后
+     * 一个位置的情况下，我们会增加一次「不必要的跳跃次数」，因此我们不必访问最后一个元素。
+     */
+
+    // 初始化当前能够到达的最大下标为0
+    let maxPosition=0,
+    // 初始化边界为0
+        end=0,
+    // 初始化步数为0    
+        step=0;
+    // 从左向右遍历数组
+    for(let i=0;i<nums.length-1;i++)
+    {
+        // 重新赋值计算当前能够到达的最大下标
+        maxPosition=Math.max(maxPosition,nums[i]+i);
+        // 到达边界
+        if(i===end)
+        {
+            // 更新边界为能到达最大下标
+            end=maxPosition;
+            // 步数增加1
+            step++;
         }
     }
     // 返回结果
