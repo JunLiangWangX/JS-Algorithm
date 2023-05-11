@@ -1,9 +1,9 @@
 /*
- * @Description: 给定一个n × n的二维矩阵请你将该矩阵顺时针旋转 90 度（仅允许O(1)的时间复杂度）。
+ * @Description: 给定一个n × n的二维矩阵请你将该矩阵顺时针旋转 90 度（仅允许O(1)的空间复杂度）。
  * @Author: JunLiangWang
  * @Date: 2023-05-11 17:31:13
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-05-11 18:02:40
+ * @LastEditTime: 2023-05-11 19:52:32
  */
 
 
