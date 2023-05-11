@@ -3,7 +3,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-05-11 17:31:13
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-05-11 19:52:32
+ * @LastEditTime: 2023-05-11 22:01:51
  */
 
 
@@ -24,9 +24,7 @@ function diagonalHorizontalRotation(matrix)
     // 遍历矩阵行
     for(let i=0;i<matrix.length;i++)
     {
-        // 遍历矩阵列，对角线翻转，因此从对线后一列元素
-        // 翻转即可， 由于矩阵为正方形，因此此处也可以
-        // 使用matrix.length比较
+        // 遍历矩阵列，对角线翻转
         for(let j=i+1;j<matrix.length;j++)
         {
             // 元素对换，实现对角线翻转
@@ -42,4 +40,30 @@ function diagonalHorizontalRotation(matrix)
     }
     // 返回结果
     return matrix;
+}
+
+
+/**
+ * @description: 四角旋转  TC:O(n^2)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} matrix 给定矩阵
+ * @return {*}
+ */
+function fourCornerRotation(matrix){
+    /**
+     * 该算法利用四角旋转的方式，相较于上一算法减少了许多重复
+     * 位移，由于最近刚刚阳康，脑子感觉特别不够用，难以使用语
+     * 言表达出该算法，可能需要各位自行利用例子体会算法过程才
+     * 能理解该算法
+     */
+    let l=matrix.length
+    for(let i=0;i<Math.floor(l/2);++i){
+        for(let j=i;j<l-1-i;++j){
+            let temp=matrix[i][j]
+            matrix[i][j]=matrix[l-1-j][i]
+            matrix[l-1-j][i]=matrix[l-1-i][l-1-j]
+            matrix[l-1-i][l-1-j]=matrix[j][l-1-i]
+            matrix[j][l-1-i]=temp
+        }
+    }
 }
