@@ -4,7 +4,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-05-24 16:23:31
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-05-24 16:35:10
+ * @LastEditTime: 2023-05-24 16:37:01
  */
 
 
@@ -81,4 +81,19 @@ function recursionBacktracking(n) {
     recursion(0,[]);
     // 返回结果
     return count;
+}
+
+
+/**
+ * @description: 查询法    TC:O(1)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} n   给定矩阵大小
+ * @return {*}
+ */
+function queryMethod(n){
+    /**
+     * 由于n的范围为1-9，数量并不大，因此我们可以记录1到9
+     * 所有值，然后返回查询结果即可
+     */
+    return [1,0,0,2,10,4,40,92,352][n-1]
 }
