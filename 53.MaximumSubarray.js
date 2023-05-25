@@ -3,7 +3,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-05-25 16:03:05
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-05-25 23:00:14
+ * @LastEditTime: 2023-05-25 23:14:02
  */
 
 
@@ -11,7 +11,7 @@
 /**
  * @description: 动态规划   TC:O(n^2)   SC:O(n^2)
  * @author: JunLiangWang
- * @param {*} nums
+ * @param {*} nums  给定数组
  * @return {*}
  */
 function dp(nums){
@@ -58,5 +58,22 @@ function dp(nums){
         }
     }
     // 返回结果
+    return maxValue;
+}
+
+
+/**
+ * @description: 动态规划优化  TC:O(n)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} nums  给定数组
+ * @return {*}
+ */
+function dpOptimization(nums){
+    // 该方案对动态规划进行优化，只可意会，不可言传！
+    let preValue=0,maxValue=nums[0];
+    nums.map(val => {
+        preValue=Math.max(preValue+val,val);
+        maxValue=Math.max(maxValue,preValue);
+    });
     return maxValue;
 }
