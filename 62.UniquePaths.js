@@ -5,7 +5,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-06-07 09:04:34
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-06-07 09:40:10
+ * @LastEditTime: 2023-06-07 09:48:07
  */
 
 
@@ -88,4 +88,29 @@ function dp(m,n){
     }
     // 返回结果
     return DPArray[m][n];
+}
+
+
+/**
+ * @description: 组合数学  TC:O(n)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} m  给定纵坐标边界
+ * @param {*} n  给定横坐标边界
+ * @return {*}
+ */
+function combinatorialMathematics(m,n){
+    /**
+     * 该方案我们使用数学中排列组合的组合思想，从左上角到右下角的过程中，
+     * 我们总共需要移动m+n−2次，其中有m−1次向下移动，n−1次向右移动。因
+     * 此路径的总数，就等于从 m+n−2次移动中选m−1次向下移动的方案数，即
+     * 组合数：C (m-1)
+     *          (m+n-2)
+     */
+
+    let ans = 1;
+    for (let x = n, y = 1; y < m; ++x, ++y) {
+        ans = Math.floor(ans * x / y);
+    }
+    return ans;
+
 }
