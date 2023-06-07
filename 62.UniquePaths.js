@@ -1,3 +1,12 @@
+/*
+ * @Description: 一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为 “Start” ）。机器人每次只能
+                 向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。问总共有多
+                 少条不同的路径？
+ * @Author: JunLiangWang
+ * @Date: 2023-06-07 09:04:34
+ * @LastEditors: JunLiangWang
+ * @LastEditTime: 2023-06-07 09:40:10
+ */
 
 
 
@@ -42,4 +51,41 @@ function dfs(m,n){
     recursionBacktracking(1,1)
     // 返回结果
     return pathCount;
+}
+
+
+/**
+ * @description: 动态规划   TC:O(n^2)  SC:O(n^2)
+ * @author: JunLiangWang
+ * @param {*} m  给定纵坐标边界
+ * @param {*} n  给定横坐标边界
+ * @return {*}
+ */
+function dp(m,n){
+    /**
+     * 该方案使用动态规划的方式，定义一个(m+1)*(n+1)的矩阵(DPArray)，其中矩阵的
+     * 某一个元素，例如DPArray[i][j]表示到达(j,i)总共有多少条路径，已知
+     * 机器人只能向下/向右移动，因此到达(j,i)有多少条路径就等于到达上一格
+     * 即(j-1,i)与到达左一格即(j,i-1)的路径数量之和，公式则为：
+     * DPArray[i][j]=DPArray[i-1][j]+DPArray[i][j-1]，之所以是定义(m+1)*(n+1)的
+     * 矩阵就是方便该处获取到DPArray[i-1][j]与DPArray[i][j-1]的值，
+     * 最终DPArray最后一个元素则为达到终点的总数量
+     * 
+     */
+
+    // 定义一个(m+1)*(n+1)的矩阵
+    let DPArray=new Array(m+1).fill(0).map(()=>new Array(n+1).fill(0));
+    // 初始化(0,1)处路径数量为1，由于(1,1)处的路径数量肯定是为1的，而(1,1)处路径数量
+    // 等于(1,0)的路径数量加上(0,1)的路径数量，因此需要先将两者其一初始化为1
+    DPArray[0][1]=1;
+    // 从(1至m，1至n)遍历数组
+    for(let i=1;i<=m;i++){
+        for(let j=1;j<=n;j++){
+            // 到达(j,i)的路径数量就等于到达上一格即(j-1,i)与到达左一格即(j,i-1)的路
+            // 径数量之和，即：DPArray[i][j]=DPArray[i-1][j]+DPArray[i][j-1]
+            DPArray[i][j]=DPArray[i-1][j]+DPArray[i][j-1];
+        }
+    }
+    // 返回结果
+    return DPArray[m][n];
 }
