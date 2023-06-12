@@ -5,11 +5,17 @@
  * @Author: JunLiangWang
  * @Date: 2023-06-12 08:55:18
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-06-12 09:06:18
+ * @LastEditTime: 2023-06-12 09:08:36
  */
 
 
 
+/**
+ * @description: 模拟法   TC:O(n)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} digits  给定数组
+ * @return {*}
+ */                 
 function simulation(digits){
     /**
      * 本方案利用模拟的方式，从后到前依次遍历数组给元素加一，
