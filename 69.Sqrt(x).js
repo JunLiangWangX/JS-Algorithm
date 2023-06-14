@@ -7,7 +7,12 @@
  */
 
 
-
+/**
+ * @description: 模拟法   TC:O(n)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} x
+ * @return {*}
+ */
 function simulation(x){
     /**
      * 本方案使用模拟的方式，由于仅需要返回算术平方
