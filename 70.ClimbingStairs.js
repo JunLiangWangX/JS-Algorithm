@@ -4,7 +4,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-06-16 08:55:17
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-06-16 10:06:38
+ * @LastEditTime: 2023-06-16 10:10:50
  */
 
 
@@ -149,4 +149,21 @@ function matrixFastExponentiation(n) {
     const q = [[1, 1], [1, 0]];
     const res = fastPower(q, n);
     return res[0][0];
+}
+
+
+/**
+ * @description: 斐波那契数列  TC:O(1)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} n 需要 n 阶你才能到达楼顶
+ * @return {*}
+ */
+function FibonacciSequence(n){
+    /**
+     * 其实不难发现，该题答案数列其实为斐波那契数列，因此我们使用斐波那契数列的
+     * 公式，即可直接计算出答案
+     */
+    const sqrt5 = Math.sqrt(5);
+    const fibn = Math.pow((1 + sqrt5) / 2, n + 1) - Math.pow((1 - sqrt5) / 2, n + 1);
+    return Math.round(fibn / sqrt5);
 }
