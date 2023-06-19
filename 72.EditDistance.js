@@ -4,11 +4,18 @@
  * @Author: JunLiangWang
  * @Date: 2023-06-19 09:00:14
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-06-19 09:42:10
+ * @LastEditTime: 2023-06-19 09:44:08
  */
 
 
 
+/**
+ * @description: 动态规划   TC:O(n^2)  SC:O(n^2)
+ * @author: JunLiangWang
+ * @param {*} word1 给定单词1
+ * @param {*} word2 给定单词2
+ * @return {*}
+ */
 function dp(word1,word2){
     /**
      * 本方案使用动态规划的方式，定义一个m*n(m表示word1的长度，n表示word2的长度)的矩阵，
