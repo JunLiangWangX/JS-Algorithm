@@ -6,7 +6,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-06-25 09:00:06
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-06-25 09:30:03
+ * @LastEditTime: 2023-06-25 09:49:02
  */
 
 
@@ -45,4 +45,68 @@ function twoScans(nums){
     }
     // 返回结果
     return nums;
+}
+
+
+/**
+ * @description: 双指针   TC:O(n)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} nums 给定数组
+ * @return {*}
+ */
+function doublePoints(nums){
+    /**
+     * 本方案使用双指针的方式，使用两个指针(point0,
+     * point1)分别用来交换0和1.我们从左向右遍历整
+     * 个数组，如果找到了1，那么将其与nums[point1]
+     * 进行交换，并将point1向后移动一个位置;如果找
+     * 到了0，那么将其与nums[point0]进行交换，并将
+     * point0向后移动一个位置，因为连续的0之后是连
+     * 续的1，因此如果我们将0与nums[point0]交换可
+     * 能会把一个 1 交换出去。当point0<point1时，
+     * 证明我们已经将一些 1 连续地放在头部，此时一
+     * 定会把一个 1 交换出去，导致答案错误。因此，
+     * 如果 point0<point1，那么我们需要再将
+     * nums[point1]与已交换的元素nums[i]再次交换，
+     * 并将point1向后移动一个位置。
+     */
+
+    /**
+     * @description: 交换数组两元素
+     * @author: JunLiangWang
+     * @param {*} i  数组索引1
+     * @param {*} j  数组索引2
+     * @return {*}
+     */    
+    function swap(i,j){
+        let temp=nums[i];
+        nums[i]=nums[j];
+        nums[j]=temp;
+    }
+    // 使用指针point0交换0
+    let point0=0,
+    // 使用指针point1交换1
+    point1=0;
+    // 我们从左向右遍历整个数组
+    for(let i=0;i<nums.length;i++){
+        // 如果找到了0，那么将其与nums[point0]
+        // 进行交换，并将point0向后移动一个位置
+        // 当point0<point1时，证明我们已经将一
+        // 些 1 连续地放在头部，此时将0与nums[point0]
+        // 交换一定会把一个 1 交换出去，因此我们需要再将
+        // nums[point1]与已交换的元素nums[i]再次交换，
+        //  并将point1向后移动一个位置。
+        if(nums[i]===0){
+            swap(i,point0)
+            if(point0<point1)swap(i,point1);
+            point0++;
+            point1++;
+        }
+        // 如果找到了1，那么将其与nums[point1]
+        // 进行交换，并将point1向后移动一个位置
+        else if(nums[i]===1){
+            swap(i,point1);
+            point1++;
+        }
+    }
 }
