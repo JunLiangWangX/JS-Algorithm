@@ -4,7 +4,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-07-08 10:08:28
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-07-08 10:24:20
+ * @LastEditTime: 2023-07-08 12:18:31
  */
 
 
@@ -48,4 +48,65 @@ function bruteForce(heights) {
     }
     // 返回最大面积
     return maxArea;
+}
+
+
+/**
+ * @description: 单调栈   TC:O(n)  SC:O(n)
+ * @author: JunLiangWang
+ * @param {*} heights 给定高度数组
+ * @return {*}
+ */
+function monotonicStack(heights){
+    /**
+     * 上述暴力破解，当我们找某一高度的边界时，存在多次重复扫描
+     * 上次已扫描过的元素，因此我们可以通过优化寻找边界的过程来
+     * 优化时间复杂度
+     * 
+     * 我们可以定义两数组(leftBorder,rightBorder)，heights[i]
+     * 的左边界为leftBorer[i],右边界为rightBorder[i]。
+     * 
+     * 如何获得所有元素的左/右边界呢？此处我们以左边界举例子
+     * 某一元素的左边界则为左边离它最近的小于它的元素，因此
+     * 我们可以利用栈，从左到右遍历数组元素，不断将元素入栈，栈顶元素
+     * 为当前元素的上一个元素，当栈顶元素大于等于当前元素证明
+     * 上一个元素不是当前元素的左边界，将元素出栈，继续比较栈
+     * 顶元素(此时栈顶元素则为上一个元素的左边界，即为小于的它
+     * 元素，那些上次被出栈的元素肯定是大于等于上一个元素的，因此无需
+     * 再次比较)，直到栈为空或者找到了小于当前元素的栈顶元素，
+     * 如果栈为空证明当前元素的左边界超过了数组范围为-1，如果栈
+     * 不为空，证明当前元素的左边界为栈顶元素，最后我们把当前元素
+     * 入栈，继续遍历数组下一个元素
+     * 
+     * 右边界呢？我们重复上述过程，从右到左遍历数组即可，超出数组范围
+     * 不再赋值为-1，而是赋值为数组长度
+     * 
+     * 最后我们通过(rightBorder[i]-leftBorder[i]-1)*heights[i]计算出
+     * 每个元素作为最大高度的矩形的面积，比较出最大的面积即可获取答案
+     */
+
+    
+    let leftBorder=new Array(heights.length),
+    rightBorder=new Array(heights.length), 
+    stack=[],
+    maxArea=0;
+
+    for(let i=0;i<heights.length;i++){
+        while(stack.length>0&&heights[stack[stack.length - 1]]>=heights[i])stack.pop()
+        if(stack.length==0)leftBorder[i]=-1;
+        else leftBorder[i]=stack[stack.length - 1];
+        stack.push(i);
+    }
+    stack=[];
+    for(let i=heights.length-1;i>=0;i--){
+        while(stack.length>0&&heights[stack[stack.length - 1]]>=heights[i])stack.pop()
+        if(stack.length==0)rightBorder[i]=heights.length;
+        else rightBorder[i]=stack[stack.length - 1];
+        stack.push(i);
+    }
+    for(let i=0;i<heights.length;i++){
+        let area=(rightBorder[i]-leftBorder[i]-1)*heights[i]
+        if(area>maxArea)maxArea=area;
+    }
+    return maxArea
 }
