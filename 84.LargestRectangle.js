@@ -4,10 +4,16 @@
  * @Author: JunLiangWang
  * @Date: 2023-07-08 10:08:28
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-07-08 10:22:38
+ * @LastEditTime: 2023-07-08 10:24:20
  */
 
 
+/**
+ * @description: 暴力破解   TC:O(n^2)   SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} heights 给定高度数组
+ * @return {*}
+ */                  
 function bruteForce(heights) {
     /**
      * 本方案采用暴力破解的方式，遍历数组每个元素，并将该元素作为
