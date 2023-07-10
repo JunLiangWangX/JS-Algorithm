@@ -4,7 +4,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-07-08 10:08:28
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-07-08 12:18:31
+ * @LastEditTime: 2023-07-10 09:01:38
  */
 
 
@@ -85,28 +85,39 @@ function monotonicStack(heights){
      * 每个元素作为最大高度的矩形的面积，比较出最大的面积即可获取答案
      */
 
-    
+    // 左边界数组
     let leftBorder=new Array(heights.length),
+    // 右边界数组
     rightBorder=new Array(heights.length), 
+    // 栈
     stack=[],
+    // 最大面积
     maxArea=0;
-
+    // 从左到右遍历高度，获取左边界
     for(let i=0;i<heights.length;i++){
+        // 当栈顶元素大于等于当前元素，证明不是当前元素的左边界，此时出栈
         while(stack.length>0&&heights[stack[stack.length - 1]]>=heights[i])stack.pop()
+        // 当栈为空，证明当前左边界超出数组范围，置为-1
         if(stack.length==0)leftBorder[i]=-1;
+        // 不为空，则此时栈顶元素是小于当前元素的，为当前元素的左边界
         else leftBorder[i]=stack[stack.length - 1];
+        // 给栈添加当前元素
         stack.push(i);
     }
+    // 将栈置为空
     stack=[];
+    // 从右到左遍历高度，获取右边界(与上述获取左边界同理，只不过超过范围置为数组长度)
     for(let i=heights.length-1;i>=0;i--){
         while(stack.length>0&&heights[stack[stack.length - 1]]>=heights[i])stack.pop()
         if(stack.length==0)rightBorder[i]=heights.length;
         else rightBorder[i]=stack[stack.length - 1];
         stack.push(i);
     }
+    // 遍历左右边界，计算面积，获取最大面积
     for(let i=0;i<heights.length;i++){
         let area=(rightBorder[i]-leftBorder[i]-1)*heights[i]
         if(area>maxArea)maxArea=area;
     }
+    // 返回结果
     return maxArea
 }
