@@ -4,7 +4,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-07-11 14:11:49
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-07-11 14:39:01
+ * @LastEditTime: 2023-07-11 14:53:30
  */
 
 
@@ -74,6 +74,103 @@ function bruteForce(matrix) {
                 height = Math.min(height, rect[i][k]);
                 maxArea = Math.max(maxArea, (j - k + 1) * height);
             }
+        }
+    }
+    // 返回结果
+    return maxArea;
+}
+
+
+/**
+ * @description: 单调栈   TC:O(n^2)   SC:O(n^2)
+ * @author: JunLiangWang
+ * @param {*} matrix 给定矩阵
+ * @return {*}
+ */
+function monotonicStack(matrix){
+    /**
+     * 该方案使用单调栈，上述暴力破解法中我们首先计算出矩阵的每个元素的上边连续 1 的数量
+     * 例如:
+     *     matrix=  1 0 1 0 0
+     *              1 0 1 1 1
+     *              1 1 1 1 1 
+     *              1 0 0 1 0
+     * 
+     * 计算矩阵每个元素的上边连续1的数量
+     * 
+     *    rect=  1 0 1 0 0
+     *           2 0 2 1 1
+     *           3 1 3 2 2
+     *           4 0 0 3 0
+     * 
+     * 我们将行分割，即可发现，这与84题中获取柱状图最大矩形的输入数据是一样的
+     * 
+     *    rect=  1 0 1 0 0      [ 1,0,1,0,0 ]
+     *         --------------
+     *           2 0 2 1 1      [ 2,0,2,1,1 ]
+     *         --------------
+     *           3 1 3 2 2      [ 3,1,3,2,2 ]
+     *         --------------
+     *           4 0 0 3 0      [ 4,0,0,3,0 ]
+     *         --------------
+     * 
+     * 因此该题可通过将行分割，然后使用84题获取柱状图最大矩形中的单调栈的方式
+     * 求得每行中最大的矩形面积，然后比较每行的最大矩形，即可获得答案
+     */
+
+    // 原矩阵高度
+    let m = matrix.length,
+    // 原矩阵长度
+        n = matrix[0].length,
+    // 定义新的矩阵，记录每个元素的上边连续的1的数量
+        rect = new Array(m).fill(0).map(() => new Array(n).fill(0)),
+    // 记录最大面积
+        maxArea = 0;
+    
+    // 遍历原有矩阵，计算矩阵每个元素的上边连续1的数量
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            // 如果当前元素等于1，其上边连续1的数量等于
+            // 上一个元素上边连续1的数量+1
+            if (matrix[i][j] == 1) {
+                rect[i][j] = (i > 0 ? rect[i - 1][j] : 0) + 1
+            }
+            // 当前元素等于0则不连续，默认为0
+        }
+    }
+
+    // 遍历逐行遍历新数组
+    for(let row=0;row<m;row++){
+        // 左边界数组
+        let leftBorder=new Array(n).fill(-1),
+        // 右边界数组
+            rightBorder=new Array(n).fill(n);
+        // 栈
+        let stack=[];
+         
+        // 从左到右遍历高度，获取左边界
+        for(let col=0;col<n;col++){
+            // 当栈顶元素大于等于当前元素，证明不是当前元素的左边界，此时出栈
+            while(stack.length>0&&rect[row][stack[stack.length-1]]>=rect[row][col]) stack.pop();
+            // 当栈不为空，则此时栈顶元素是小于当前元素的，为当前元素的左边界
+            if(stack.length>0)leftBorder[col]=stack[stack.length-1];
+            // 否则栈为空，证明当前元素左边界超出数组范围，需要置为-1，
+            // 由于默认值为-1，因此无需重新赋值
+
+            // 给栈添加当前元素
+            stack.push(col);
+        }
+        // 将栈置为空
+        stack=[];
+        // 从右到左遍历高度，获取右边界(与上述获取左边界同理，只不过超过范围置为数组长度)
+        for(let col=n-1;col>=0;col--){
+            while(stack.length>0&&rect[row][stack[stack.length-1]]>=rect[row][col]) stack.pop();
+            if(stack.length>0)rightBorder[col]=stack[stack.length-1];
+            stack.push(col);
+        }
+        // 遍历左右边界，计算面积，获取最大面积
+        for(let col=0;col<n;col++){
+          maxArea=Math.max(maxArea,(rightBorder[col]-leftBorder[col]-1)*rect[row][col])  
         }
     }
     // 返回结果
