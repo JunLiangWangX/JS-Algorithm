@@ -3,7 +3,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-07-18 08:49:26
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-07-18 09:03:15
+ * @LastEditTime: 2023-07-18 09:15:23
  */
 
 
@@ -31,8 +31,8 @@ function recursionBacktracking(s1, s2) {
         // lastString为后缀
         const preString = s1.substr(0, i),
             lastString = s1.substr(i),
-        // 从i处分割字符串s2，comparePreString为前缀
-        // compareLastString为后缀
+            // 从i处分割字符串s2，comparePreString为前缀
+            // compareLastString为后缀
             comparePreString = s2.substr(0, i),
             compareLastString = s2.substr(i);
         // 判断无交换的情况，即:s2=preString+lastString，继续
@@ -52,4 +52,90 @@ function recursionBacktracking(s1, s2) {
     }
     // 如果遍历完成仍无，则返回false
     return false;
+}
+
+
+/**
+ * @description: 记忆搜索  TC:O(2^n)  SC:O(n)
+ * @author: JunLiangWang
+ * @param {*} s1  给定字符串s1
+ * @param {*} s2  给定字符串s2
+ * @return {*}
+ */
+function memorySearch(s1, s2) {
+    /**
+     * 我们可以对上述递归回溯方式进行优化，加入记忆搜索。
+     * 对于每次递归回溯我们将其结果添加到map中，到后面
+     * 有重复递归内容，我们可直接查询map获取结果，而无
+     * 需递归，从而优化时间复杂度。
+     */
+
+    // 定义记录递归结果的map
+    let cache = new Map();
+    /**
+     * @description: 递归回溯   TC:O(2^n)  SC:O(1)
+     * @author: JunLiangWang
+     * @param {*} str1 给定字符串str1
+     * @param {*} str2 给定字符串str2
+     * @return {*}
+     */
+    function recursionBacktracking(str1, str2) {
+        // 生成map中的key
+        let key = str1 + '+' + str2;
+
+        // 如果两字符串相等，str2则为str1的扰乱字符串
+        // 并向map添加递归结果
+        if (str1 == str2) {
+            cache.set(key, true);
+            return true;
+        }
+        // 如果两字符串长度不相等，s2则不为s1的扰乱字符串
+        // 并向map添加递归结果
+        if (str1.length != str2.length) {
+            cache.set(key, false);
+            return false;
+        }
+        // 查询map中有无记录的结果，有则直接返回其递归结果。
+        let result = cache.get(key)
+        if (result != undefined) return result;
+
+        // 从索引1(由于索引0的情况s1==s2已判断)遍历两字符
+        // 串(s1,s2长度相等，因此使用s1的长度即可)
+        for (let i = 1; i < str1.length; i++) {
+            // 从i处分割字符串s1，preString为前缀
+            // lastString为后缀
+            const preString = str1.substr(0, i),
+                lastString = str1.substr(i),
+                // 从i处分割字符串s2，comparePreString为前缀
+                // compareLastString为后缀
+                comparePreString = str2.substr(0, i),
+                compareLastString = str2.substr(i);
+            // 判断无交换的情况，即:s2=preString+lastString，继续
+            // 递归判断preString是否comparePreString的扰乱字符串
+            // lastString是否compareLastString的扰乱字符串，如果是
+            // 证明s2为s1的扰乱字符串，此时返回true,并向map添加递归结果
+            if (recursionBacktracking(preString, comparePreString) && recursionBacktracking(lastString, compareLastString)) {
+                cache.set(key, true);
+                return true;
+            }
+            // 否则判断有交换的情况，即:s2=lastString+preString,
+
+            // 从后到前以i位置分割字符串，获得交换后的preString，lastString
+            const exchangeComparePreString = str2.substr(0, str2.length - i),
+                exchangeCompareLastString = str2.substr(str2.length - i);
+            // 继续递归判断preString是否exchangeCompareLastString的扰乱字符串
+            // lastString是否exchangeComparePreString的扰乱字符串，如果是
+            // 证明s2为s1的扰乱字符串，此时返回true,并向map添加递归结果
+            if (recursionBacktracking(preString, exchangeCompareLastString) && recursionBacktracking(lastString, exchangeComparePreString)) {
+                cache.set(key, true);
+                return true;
+            }
+        }
+        // 如果遍历完成仍无，则返回false,并向map添加递归结果
+        cache.set(key, false);
+        return false;
+    }
+
+    // 执行递归，返回结果
+    return recursionBacktracking(s1, s2);
 }
