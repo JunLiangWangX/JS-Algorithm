@@ -3,7 +3,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-07-18 08:49:26
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-07-18 09:15:23
+ * @LastEditTime: 2023-07-18 09:31:04
  */
 
 
@@ -138,4 +138,72 @@ function memorySearch(s1, s2) {
 
     // 执行递归，返回结果
     return recursionBacktracking(s1, s2);
+}
+
+
+/**
+ * @description: 动态规划  TC:O(n^4)  SC:O(n^3)
+ * @author: JunLiangWang
+ * @param {*} s1  给定字符串s1
+ * @param {*} s2  给定字符串s2
+ * @return {*}
+ */
+function dp(s1,s2){
+    /**
+     * 该方式使用动态规划的方式，给定两字符串S与T，
+     * 假设T是S的扰乱字符串则有以下情况：
+     *  
+     *  1.T==S
+     *  2.S能够分割字符串为S1，S2;T同样能够分割字符串为T1，T2，
+     *    此时会出现两种情况：
+     *      情况一：无需交换，S1==T1,S2==T2
+     *      情况二：需要交换，S1==T2,S2==T1
+     * 
+     * 此时即可将一个复杂问题划分若干子问题，因此我们可以定义一个
+     * 三维数组(DPArray),第一个维度索引代表S的起点位置，第二个维
+     * 度索引代表T的起点位置，第三个维度代表长度，DPArray[i][j][k]
+     * 则表示了S从i开始k长度字符串是否为T从j开始k长度字符串的扰乱字符
+     * 
+     */
+    // 如果两字符串相等，s2则为s1的扰乱字符串
+    if(s1===s2)return true;
+
+    // 定义DP数组
+    let DPArray=new Array(s1.length).fill(0)
+    .map(()=>new Array(s1.length).fill(0)
+    .map(()=>new Array(s1.length+1).fill(false)))
+
+    // 初始化单个字符的情况
+    for(let i=0;i<DPArray.length;i++){
+        for(let j=0;j<DPArray.length;j++){
+            DPArray[i][j][1]=s1[i]==s2[j]
+        }
+    }
+
+    // 枚举区间长度 2～字符串长度
+    for(let len=2;len<=s1.length;len++){
+        
+         // 枚举 s1 中的起点位置
+        for(let i=0;i<=s1.length-len;i++){
+            // 枚举 s2 中的起点位置
+            for(let j=0;j<=s1.length-len;j++){
+                // 枚举划分位置
+                for(let k=1;k<len;k++){
+                    // 第一种情况：S1 ==  T1, S2 == T2
+                    if(DPArray[i][j][k]&&DPArray[i + k][j + k][len - k]){
+                        DPArray[i][j][len]=true
+                        break;
+                    }
+                    // 第一种情况：S1 ==  T2, S2 == T1
+                    // S1 起点 i，T2 起点 j + 前面那段长度 len-k ，S2 起点 i + 前面长度k
+                    if(DPArray[i][j+len-k][k]&&DPArray[i+k][j][len-k]){
+                        DPArray[i][j][len]=true
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    // 返回结果
+    return DPArray[0][0][s1.length];
 }
