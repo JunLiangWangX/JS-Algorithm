@@ -3,12 +3,12 @@
  * @Author: JunLiangWang
  * @Date: 2023-07-20 09:59:53
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-07-20 10:10:57
+ * @LastEditTime: 2023-07-20 10:21:25
  */
 
 
 /**
- * @description: 归纳法   TC:O(2^n)  SC:O(n)
+ * @description: 归纳法    TC:O(2^n)   SC:O(n)
  * @author: JunLiangWang
  * @param {*} n  给定整数n
  * @return {*}
@@ -39,5 +39,22 @@ function inductionMethod(n){
             outArray.push(outArray[j]|(1<<(i-1)));
         }
     }
+    return outArray;
+}
+
+
+/**
+ * @description: 数学公式法  TC:O(2^n)  SC:O(n)
+ * @author: JunLiangWang
+ * @param {*} n 给定整数n
+ * @return {*}
+ */
+function mathMethod(n){
+    /**
+     * 该方案使用数学公式，求第i位格雷码序列有以下公式：
+     *  G(i)= (i>>1)^i   ^为位异或
+     */
+    let outArray=[];
+    for(let i=0;i<Math.pow(2,n);i++)outArray.push((i>>1)^i);
     return outArray;
 }
