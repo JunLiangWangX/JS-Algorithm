@@ -4,7 +4,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-08-01 09:20:04
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-08-01 09:31:27
+ * @LastEditTime: 2023-08-01 10:19:40
  */
 
 
@@ -54,11 +54,59 @@ function recursionBackTracking(n){
 }
 
 
+/**
+ * @description: 动态规划   TC:O(n^2)  SC:O(n)
+ * @author: JunLiangWang
+ * @param {*} n 给定整数n
+ * @return {*}
+ */
+function dp(n){
+    /**
+     * 大家考虑一个问题同样是3个值的范围，例如
+     * [1,2,3]与[6,7,8]能生成二叉搜索树的数量
+     * 是一致的吗？答案是一致的
+     * 
+     * 从上述递归回溯中我们可以看出，对于以i作为头节点
+     * 其能生成二叉树的个数就等于它的左树的个数乘以它的
+     * 右树的个数，即：
+     * F(i)=G(start,i-1)*G(i+1,end)
+     * 由于只要范围一样，其能生成的二叉搜索树数量也是一
+     * 样的，因此我们不用再关心谁作为头节点，关心左右
+     * 两边的节点数量即可，即
+     * 
+     * // 左边节点数量为i-1,右边节点数量为n-i
+     * F(i)=G(i-1)*G(n-i)
+     * 
+     * 对于求解[1:n]能生成二叉搜索的个数为：
+     * G(n)=F(1)+F(2)+....+F(n)
+     * 
+     * 
+     */
+    
+    const G = new Array(n + 1).fill(0);
+    // n=0时为1
+    G[0] = 1;
+    // n=1时为1
+    G[1] = 1;
+
+    // 模拟G(n)=F(1)+F(2)+....+F(n)，
+    // 此处从2开始
+    for(let i=2;i<=n;i++){
+        // 以j作为头节点
+        for(let j=1;j<=i;j++){
+            // 左边节点数量为j-1,右边节点数量为i-j
+            G[i]+=G[j-1]*G[i-j]
+        }
+    }
+    // 返回结果
+    return G[n]
+}
+
 
 /**
  * @description: 数学公式   TC:O(n)  SC:O(1)
  * @author: JunLiangWang
- * @param {*} n
+ * @param {*} n 给定整数n
  * @return {*}
  */
 function mathFormula(n){
