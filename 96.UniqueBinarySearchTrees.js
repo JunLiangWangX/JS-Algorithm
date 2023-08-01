@@ -4,7 +4,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-08-01 09:20:04
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-08-01 09:24:53
+ * @LastEditTime: 2023-08-01 09:31:27
  */
 
 
@@ -51,4 +51,23 @@ function recursionBackTracking(n){
     }
     // 执行递归
    return recursion(1,n)
+}
+
+
+
+/**
+ * @description: 数学公式   TC:O(n)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} n
+ * @return {*}
+ */
+function mathFormula(n){
+    /**
+     * 对于一个有序数组，其可生成不同二叉搜索树的数量可用
+     * 以下公式计算：
+     *              C(n+1)=2(2n+1)/(n+2)*C(n) 
+     */
+    let C=1;
+    for(let i=1;i<n;i++)C=(2*i+1)/(i+2)*2*C
+    return C
 }
