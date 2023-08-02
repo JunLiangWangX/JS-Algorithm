@@ -3,7 +3,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-08-02 10:19:13
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-08-02 10:34:48
+ * @LastEditTime: 2023-08-02 10:48:14
  */
 
 
@@ -15,7 +15,7 @@
  * @param {*} s3  给定字符串s3
  * @return {*}
  */
-function dp(s1,s2,s3){
+function dp(s1, s2, s3) {
     /**
      * 该方案使用动态规划的方式，首先有如果s1与s2的长度不等于s3
      * 证明无法组成，直接返回false。
@@ -37,23 +37,22 @@ function dp(s1,s2,s3){
      */
 
     // 首先有如果s1与s2的长度不等于s3证明无法组成，直接返回false。
-    if(s1.length+s2.length!=s3.length)return false
+    if (s1.length + s2.length != s3.length) return false
     // 定义DP矩阵数组
-    let DPArray=new Array(s1.length+1).fill(false).map(()=>new Array(s2.length+1).fill(false))
+    let DPArray = new Array(s1.length + 1).fill(false).map(() => new Array(s2.length + 1).fill(false))
     // 初始化[0][0]为false
-    DPArray[0][0]=true
+    DPArray[0][0] = true
 
     // 遍历元素
-    for(let i=0;i<=s1.length;i++)
-    {
-        for(let j=0;j<=s2.length;j++){
+    for (let i = 0; i <= s1.length; i++) {
+        for (let j = 0; j <= s2.length; j++) {
             /**
              * 如果s2的第j个元素等于s3的第i+j个元素，证明需要无需交错， 
              * 此时问题就被缩小至s2的前i个元素是否和s2的前j-1个元素能否交
              * 错组成s3的前i+j-1个元素，即：f(i,j)=f(i,j-1)
              */
-            if(j>0&&s2[j-1]==s3[i+j-1]){
-                DPArray[i][j]=DPArray[i][j-1]
+            if (j > 0 && s2[j - 1] == s3[i + j - 1]) {
+                DPArray[i][j] = DPArray[i][j - 1]
             }
             /**
              * 如果s1的第i个元素等于s3的第i+j个元素，证明需要交错，此时
@@ -61,13 +60,55 @@ function dp(s1,s2,s3){
              * 错组成s3的前i+j-1个元素，即：
              *        f(i,j)=f(i-1,j)
              */
-            if(i>0&&s1[i-1]==s3[i+j-1]){
+            if (i > 0 && s1[i - 1] == s3[i + j - 1]) {
                 // 为什么会使用|=，由于s2[j-1],s1[i-1],s3[i+j-1]
                 // 可能存在3者都相等的情况，此时任意为真都应该为真
-                DPArray[i][j]|=DPArray[i-1][j]
+                DPArray[i][j] |= DPArray[i - 1][j]
             }
         }
     }
     // 返回结果
     return DPArray[s1.length][s2.length]
+}
+
+
+/**
+ * @description: 滚动数组  TC:O(n^2)  SC:O(n)
+ * @author: JunLiangWang
+ * @param {*} s1  给定字符串s1
+ * @param {*} s2  给定字符串s2
+ * @param {*} s3  给定字符串s3
+ * @return {*}
+ */
+function scrollArray(s1, s2, s3) {
+    /**
+     * 我们可利用滚动数组对DP方式进行优化，看上述方案代码
+     * 
+     *   if(j>0&&s2[j-1]==s3[i+j-1]){
+     *      DPArray[i][j]=DPArray[i][j-1]
+     *   }
+     *   if(i>0&&s1[i-1]==s3[i+j-1]){
+     *      DPArray[i][j]|=DPArray[i-1][j]
+     *   }
+     * 
+     *   其实对于DPArray[i]而言，它只是对上一行数据有关，
+     *   因此我们可以通过&其上一次的记录使用一维的方式来
+     *   实现
+     * 
+     */
+    if (s1.length + s2.length != s3.length) return false
+    let DPArray = new Array(s2.length + 1).fill(false)
+    DPArray[0] = true
+
+    for (let i = 0; i <= s1.length; i++) {
+        for (let j = 0; j <= s2.length; j++) {
+            if (i > 0) {
+                DPArray[j] &= s1[i - 1] == s3[i + j - 1]
+            }
+            if (j > 0 && s2[j - 1] == s3[i + j - 1]) {
+                DPArray[j] |= DPArray[j - 1]
+            }
+        }
+    }
+    return DPArray[s2.length]
 }
