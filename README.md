@@ -8,6 +8,7 @@ Use js to implement leetcode algorithm
 | [#101](https://leetcode.cn/problems/symmetric-tree/)         | [SymmetricTree](https://github.com/JunLiangWangX/js-algorithm/blob/main/101.SymmetricTree.js) | 给你一个二叉树的根节点 `root` ， 检查它是否轴对称。          | Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center). |
 | [#102](https://leetcode.cn/problems/binary-tree-level-order-traversal/) | [BinaryTreeLevelOrderTraversal](https://github.com/JunLiangWangX/js-algorithm/blob/main/102.BinaryTreeLevelOrderTraversal.js) | 给你二叉树的根节点 `root` ，返回其节点值的 **层序遍历** 。 （即逐层地，从左到右访问所有节点）。 | Given the `root` of a binary tree, return *the level order traversal of its nodes' values*. (i.e., from left to right, level by level). |
 | [#103](https://leetcode.cn/problems/binary-tree-zigzag-level-order-traversal/description/) | [BinaryTreeZigzagLevelOrderTraversal](https://github.com/JunLiangWangX/js-algorithm/blob/main/103.BinaryTreeZigzagLevelOrderTraversal.js) | 给你二叉树的根节点 `root` ，返回其节点值的 **锯齿形层序遍历** 。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。 | Given the `root` of a binary tree, return *the zigzag level order traversal of its nodes' values*. (i.e., from left to right, then right to left for the next level and alternate between). |
+| [#104](https://leetcode.cn/problems/maximum-depth-of-binary-tree/) | [MaximumDepthofBinaryTree](https://github.com/JunLiangWangX/js-algorithm/blob/main/104.MaximumDepthofBinaryTree.js) | 给定一个二叉树 `root` ，返回其最大深度。                     | Given the `root` of a binary tree, return *its maximum depth*. |
 
 
 
