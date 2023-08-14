@@ -5,12 +5,12 @@
  * @Author: JunLiangWang
  * @Date: 2023-08-14 10:59:14
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-08-14 11:14:45
+ * @LastEditTime: 2023-08-14 17:49:53
  */
 
 
 /**
- * @description: 递归回溯  TC:O(n)  SC:O(n)
+ * @description: 递归回溯  TC:O(n^2)  SC:O(n)
  * @author: JunLiangWang
  * @param {*} preorder 给定树的前序遍历
  * @param {*} inorder  给定树的中序遍历
@@ -46,4 +46,72 @@ function recursionBackTracking(preorder, inorder) {
     // 返回构造一棵新的树，其根值为找打的根节点值，左节点为
     // 找到的左子树按照上述方式继续递归的结果，右子树同理
     return new TreeNode(rootValue, recursionBackTracking(preorder, leftArray), recursionBackTracking(preorder, rightArray));
+}
+
+
+/**
+ * @description: 递归回溯优化
+ * @author: JunLiangWang
+ * @param {*} preorder 给定树的前序遍历数组
+ * @param {*} inorder  给定树的中序遍历数组
+ * @return {*}
+ */
+function recursionBackTrackingOptimization(preorder,inorder){
+    /**
+     * 我们可对上述递归回溯方案进一步优化，由于
+     * 每次递归中我们都需要遍历中序数组找到根元
+     * 素的位置，如下代码：
+     * rootIndex = inorder.indexOf(rootValue),
+     * 我们可以先利用Map记录节点中序遍历的位置，
+     * 后续查找位置则无需多次遍历查找。
+     * 
+     * 对于递归参数preorder,inorder我们亦可以换成
+     * 两个变量记录开始/结束位置索引即可
+     * 
+     */
+    
+    // 先利用Map记录节点中序遍历的位置
+    // 后续查找位置不用多次遍历
+    let inorderMap=new Map(),
+    // 遍历到前序数组的位置
+    preorderIndex=0;
+    // 构造map
+    inorder.forEach((value,index)=>{
+        inorderMap.set(value,index)
+    })
+    /**
+     * @description: 递归
+     * @author: JunLiangWang
+     * @param {*} startIndex 开始索引
+     * @param {*} endIndex   结束索引
+     * @return {*}
+     */    
+    function recursion(startIndex,endIndex){
+        // 获取当前根节点
+        let rootValue=preorder[preorderIndex],
+        // 获取当前根节点在中序遍历中的位置
+        rootIndex=inorderMap.get(rootValue),
+        // 构造新的树
+        node=new TreeNode(rootValue,null,null);
+        // 更新前序数组已遍历的位置
+        preorderIndex++   
+        // 当根节点的索引等于开始索引，证明
+        // 左边已经没有元素，此时左子树为null
+        // 否则更新结束位置为根节点位置-1继续
+        // 递归
+        if(rootIndex>startIndex){
+            node.left=recursion(startIndex,rootIndex-1)
+        }
+        // 当根节点的索引等于结束索引，证明
+        // 右边已经没有元素，此时右子树为null
+        // 否则更新开始位置为根节点位置+1继续
+        // 递归
+        if(rootIndex<endIndex){
+            node.right=recursion(rootIndex+1,endIndex)
+        }
+        // 返回树
+        return node;
+    }
+    // 执行递归
+    return recursion(0,preorder.length-1)
 }
