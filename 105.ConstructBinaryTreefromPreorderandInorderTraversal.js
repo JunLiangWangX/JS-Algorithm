@@ -5,12 +5,12 @@
  * @Author: JunLiangWang
  * @Date: 2023-08-14 10:59:14
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-08-14 17:49:53
+ * @LastEditTime: 2023-08-14 17:54:33
  */
 
 
 /**
- * @description: 递归回溯  TC:O(n^2)  SC:O(n)
+ * @description: 递归回溯  TC:O(n^2)  SC:O(n^2)
  * @author: JunLiangWang
  * @param {*} preorder 给定树的前序遍历
  * @param {*} inorder  给定树的中序遍历
@@ -50,7 +50,7 @@ function recursionBackTracking(preorder, inorder) {
 
 
 /**
- * @description: 递归回溯优化
+ * @description: 递归回溯优化  TC:O(n)  SC:O(n)
  * @author: JunLiangWang
  * @param {*} preorder 给定树的前序遍历数组
  * @param {*} inorder  给定树的中序遍历数组
