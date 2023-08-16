@@ -5,7 +5,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-08-14 10:59:14
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-08-16 09:10:16
+ * @LastEditTime: 2023-08-16 09:16:07
  */
 
 
@@ -61,3 +61,71 @@ function recursionBackTracking(inorder, postorder) {
     // 返回树
     return node;
 };
+
+/**
+ * @description: 递归回溯优化  TC:O(n)  SC:O(n)
+ * @author: JunLiangWang
+ * @param {*} inorder   给定树的中序遍历
+ * @param {*} postorder 给定树的后序遍历
+ * @return {*}
+ */
+function recursionBackTrackingOptimization(inorder, postorder){
+      /**
+     * 同样，我们也可对上述递归回溯方案进一步优化，
+     * 由于每次递归中我们都需要遍历中序数组找到根
+     * 元素的位置，如下代码：
+     * rootIndex = inorder.indexOf(rootValue),
+     * 我们可以先利用Map记录节点中序遍历的位置，
+     * 后续查找位置则无需多次遍历查找。
+     * 
+     * 对于递归参数inorder，postorder我们亦可以换成
+     * 两个变量记录开始/结束位置索引即可
+     * 
+     */
+
+    // 先利用Map记录节点中序遍历的位置
+    // 后续查找位置不用多次遍历
+    let inorderMap=new Map(),
+    // 从后向前遍历后序数组的位置
+    postorderIndex=postorder.length-1;
+    // 构造map
+    inorder.forEach((value,index)=>{
+        inorderMap.set(value,index)
+    })
+
+    /**
+     * @description: 递归
+     * @author: JunLiangWang
+     * @param {*} startIndex 开始索引
+     * @param {*} endIndex   结束索引
+     * @return {*}
+     */    
+    function recursion(startIndex,endIndex){
+        // 获取当前根节点
+        let rootValue=postorder[postorderIndex],
+        // 获取当前根节点在中序遍历中的位置
+        rootIndex=inorderMap.get(rootValue),
+        // 构造新的树
+        node=new TreeNode(rootValue,null,null);
+        // 更新后序数组已遍历的位置
+        postorderIndex--   
+        // 当根节点的索引等于结束索引，证明
+        // 右边已经没有元素，此时右子树为null
+        // 否则更新开始位置为根节点位置+1继续
+        // 递归
+        if(rootIndex<endIndex){
+            node.right=recursion(rootIndex+1,endIndex)
+        }
+        // 当根节点的索引等于开始索引，证明
+        // 左边已经没有元素，此时左子树为null
+        // 否则更新结束位置为根节点位置-1继续
+        // 递归
+        if(rootIndex>startIndex){
+            node.left=recursion(startIndex,rootIndex-1)
+        }
+        // 返回树
+        return node;
+    }
+    // 执行递归
+    return recursion(0,postorderIndex)
+}
