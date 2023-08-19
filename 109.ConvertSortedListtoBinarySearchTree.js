@@ -4,7 +4,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-08-19 08:59:05
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-08-19 09:27:38
+ * @LastEditTime: 2023-08-19 09:53:29
  */
 
 
@@ -52,7 +52,7 @@ function convertToArray(head){
 
 
 /**
- * @description: 递归回溯   TC:O(nlogn)  SC:O(1)
+ * @description: 递归回溯   TC:O(nlogn)  SC:O(logn)
  * @author: JunLiangWang
  * @param {*} head 给定链表头节点
  * @return {*}
@@ -113,4 +113,73 @@ function recursionBackTracking(head){
 
    // 执行递归，返回结果
    return recursion(head,null);
+}
+
+
+/**
+ * @description: 递归回溯+中序遍历  TC:O(n)  SC:O(logn)
+ * @author: JunLiangWang
+ * @param {*} head
+ * @return {*}
+ */
+function recursionBackTrackingAndDFS(head){
+    /**
+     * 上述方法二的时间复杂度的瓶颈在于寻找中位数节点。
+     * 由于构造出的二叉搜索树的中序遍历结果就是链表本
+     * 身，因此我们可以先遍历链表获得链表长度，然后利
+     * 用递归回溯构造该树，节点值为null。最后我们把构
+     * 造好的树中序遍历，将链表值一一赋给树的节点值即
+     * 可。以此达到减少时间复杂度的目的。
+     */
+
+    // 遍历链表获得链表长度
+    let size=0,tempHead=head;
+    while(tempHead){
+        tempHead=tempHead.next;
+        size++;
+    }
+
+    /**
+     * @description: 构造树的递归函数
+     * @author: JunLiangWang
+     * @param {*} start  开始索引
+     * @param {*} end    结束索引
+     * @return {*}
+     */      
+    function recursion(start,end){
+        // 如果开始索引大于结束索引证明遍历完成
+        if(start>end)return null
+        // 取得[start,end]的中间值，作为根元素
+        let center=Math.floor((start+end)/2)
+        // 构造一棵树，其根节点为null，左节点为[start,center-1]区间
+        // 继续递归的结果，右节点为[center+1,end]区间继续递归的结果
+        return new TreeNode(null,recursion(start,center-1),recursion(center+1,end));
+    }
+
+    // 执行递归获得树
+    let tree=recursion(0,size-1);
+
+    /**
+     * @description: 中序遍历给树赋值
+     * @author: JunLiangWang
+     * @param {*} treeNode 当前树的节点
+     * @return {*}
+     */    
+    function dfs(treeNode){
+        // 如果树的节点为空，直接return
+        if(!treeNode)return 
+        // 中序遍历————穷尽当前节点的左节点
+        dfs(treeNode.left)
+        // 给树的当前节点赋值为链表当前节点的值
+        treeNode.val=head.val;
+        // 更新链表当前节点为下一个节点
+        head=head.next;
+        // 中序遍历——穷尽左节点后，递归右节点
+        dfs(treeNode.right)
+    }
+
+    // 执行中序遍历给树赋值
+    dfs(tree)
+    // 返回结果
+    return tree
 }
