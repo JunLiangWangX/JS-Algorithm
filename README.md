@@ -16,6 +16,7 @@ Use js to implement leetcode algorithm
 | [#109](https://leetcode.cn/problems/convert-sorted-list-to-binary-search-tree/) | [ConvertSortedListtoBinary....](https://github.com/JunLiangWangX/js-algorithm/blob/main/109.ConvertSortedListtoBinarySearchTree.js) | 给定一个单链表的头节点  `head` ，其中的元素 **按升序排序** ，将其转换为高度平衡的二叉搜索树。 | Given the `head` of a singly linked list where elements are sorted in **ascending order**, convert *it to a* ***height-balanced\*** *binary search tree*. |
 | [#110](https://leetcode.cn/problems/balanced-binary-tree/description/) | [BalancedBinaryTree](https://github.com/JunLiangWangX/js-algorithm/blob/main/110.BalancedBinaryTree.js) | 给定一个二叉树，判断它是否是高度平衡的二叉树。               | Given a binary tree, determine if it is **height-balanced**. |
 | [#111](https://leetcode.cn/problems/minimum-depth-of-binary-tree/) | [MinimumDepthOfBinaryTree](https://github.com/JunLiangWangX/js-algorithm/blob/main/111.MinimumDepthOfBinaryTree.js) | 给定一个二叉树，找出其最小深度。                             | Given a binary tree, find its minimum depth.                 |
+| [#112](https://leetcode.cn/problems/path-sum/)               | [PathSum](https://github.com/JunLiangWangX/js-algorithm/blob/main/112.PathSum.js) | 给你二叉树的根节点 `root` 和一个表示目标和的整数 `targetSum` 。判断该树中是否存在 **根节点到叶子节点** 的路径，这条路径上所有节点值相加等于目标和 `targetSum` 。如果存在，返回 `true` ；否则，返回 `false` 。 | Given the `root` of a binary tree and an integer `targetSum`, return `true` if the tree has a **root-to-leaf** path such that adding up all the values along the path equals `targetSum`. |
 
 
 
