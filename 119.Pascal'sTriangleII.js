@@ -51,3 +51,21 @@ function simulationOp(rowIndex){
 }
 
 
+
+/**
+ * @description: 数学方法  TC:O(n)  SC:O(n)
+ * @author: JunLiangWang
+ * @param {*} rowIndex 给定杨辉三角形行索引
+ * @return {*}
+ */
+function Math(rowIndex){
+    /**
+     * 对于杨辉三角形i行i列有公式
+     * f[i][j]=f[i][j-1]*(rowsCount-j)/j
+     */
+    let outArray=[1];
+    for(let i=1;i<=rowIndex;i++){
+        outArray.push(outArray[i - 1]* (rowIndex - i + 1) / i);
+    }
+    return outArray
+}
