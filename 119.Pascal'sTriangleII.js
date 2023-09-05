@@ -28,3 +28,26 @@ function simulation(rowIndex){
     }
     return outArray[outArray.length-1]
 }
+
+
+/**
+ * @description: 模拟法优化  TC:O(n^2)  SC:O(n)
+ * @author: JunLiangWang
+ * @param {*} rowIndex 给定杨辉三角形行索引
+ * @return {*}
+ */
+function simulationOp(rowIndex){
+    /**
+     * 上述模拟法我们发现，其实我们当前行仅与上一行有关
+     * 因此我们可以利用一维滚动数组对空间复杂度进一步优
+     * 化
+     */
+    let outArray=new Array(rowIndex+1).fill(1);
+    for(let i=0;i<=rowIndex;i++){
+        for(let j=i-1;j>=1;j--)
+              outArray[j]=outArray[j]+outArray[j-1]
+    }
+    return outArray
+}
+
+
