@@ -38,3 +38,32 @@ function bruteForce(prices){
     return max
 }
 
+
+/**
+ * @description: 一次遍历  TC:O(n)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} prices 给定数组
+ * @return {*}
+ */
+function traverseOnce(prices){
+    /**
+     * 我们可对上述暴力破解进行进一步优化，使用一次遍历
+     * 即可得出答案，我们只需要定义一个变量，在遍历过程
+     * 中不断记录最小值，然后以此来计算利润差即可
+     */
+
+    if(prices.length<2)return 0
+    // 初始化最小值为首个元素
+    let minPrices=prices[0],
+    // 初始化最大利润为0
+    maxProfit=0;
+    // 从第二个元素开始遍历数组
+    for(let i=1;i<prices.length;i++){
+        // 如果当前元素为最小值，则更新最小值
+        if(prices[i]<minPrices)minPrices=prices[i]
+        // 不是，则计算并更新最大利润
+        else maxProfit=Math.max(maxProfit,prices[i]-minPrices)
+    }
+    // 返回最大利润
+    return maxProfit;
+}
