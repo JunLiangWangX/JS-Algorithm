@@ -6,22 +6,22 @@
  * @Author: JunLiangWang
  * @Date: 2023-09-20 10:51:53
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-09-20 11:11:38
+ * @LastEditTime: 2023-09-20 11:23:23
  */
 
 
 
 /**
- * @description: 哈希表  TC:O(n)  SC:O(n)
+ * @description: 哈希表+动态规划  TC:O(n)  SC:O(n)
  * @author: JunLiangWang
  * @param {*} nums  给定未排序数组
  * @return {*}
  */
-function hashMap(nums){
+function hashMapAndDP(nums){
     /**
-     * 该方案使用哈希表，对于数组中某个元素num，它的
-     * 最长序列应该为其左邻居num-1的最长序列与右邻居
-     * num+1的最长序列的和+1即:
+     * 该方案使用哈希表+动态规划，对于数组中某个元素
+     * num，它的最长序列应该为其左邻居num-1的最长序
+     * 列与右邻居num+1的最长序列的和+1即:
      * 
      * MaxLen(num)=MaxLen(num-1)+1+MaxLen(num+1)
      * 
