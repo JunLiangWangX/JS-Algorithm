@@ -50,3 +50,48 @@ function dfs(node) {
     // 返回结果
     return recordMap.get(node);
 }
+
+
+/**
+ * @description: 广度优先  TC:O(n)  SC:O(n)
+ * @author: JunLiangWang
+ * @param {*} node 给定图的节点
+ * @return {*}
+ */
+function bfs(node) {
+
+    /**
+     * 该方案使用广度优先算法，广度优先算法依靠一个队列，
+     * 先将根节点入队，然后循环不断将队列中的节点出队，然
+     * 后将出队节点不为空的连通节点再次入队。如此往复直到
+     * 队列为空
+     * 
+     */
+
+    if (!node) return null;
+    // 记录已遍历的节点，key为原图节点，value为克隆图节点
+    const recordMap = new Map();
+    // 克隆/记录当前的节点
+    recordMap.set(node, new Node(node.val));
+    // 将当前节点加入队列中
+    const quene = [node];
+    // 当队列不为空则继续遍历
+    while (quene.length) {
+        // 出队
+        const currentNode = quene.shift();
+        // 遍历当前节点的连通节点
+        currentNode.neighbors.forEach(item => {
+            // 如果未遍历过
+            if (!recordMap.has(item)) {
+                // 将该节点入队
+                quene.push(item);
+                // 克隆/记录该节点
+                recordMap.set(item, new Node(item.val));
+            }
+            // 获得连通节点的克隆值，并加入克隆节点的连通节点中
+            recordMap.get(currentNode).neighbors.push(recordMap.get(item));
+        })
+    }
+    // 返回结果
+    return (recordMap.get(node));
+}
