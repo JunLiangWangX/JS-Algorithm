@@ -4,7 +4,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-10-11 09:05:20
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-10-11 09:08:59
+ * @LastEditTime: 2023-10-11 09:15:23
  */
 
 
@@ -37,4 +37,30 @@ function hashMap(nums) {
         // 只出现了一次的元素
         if (hashMap.get(value) == 1) return value
     }
+}
+
+
+/**
+ * @description: 位运算  TC:O(n)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} nums  给定数组
+ * @return {*}
+ */
+function bitOperations(nums){
+    /**
+     * 本方案使用位运算的方式，异或运算有以下三个性质：
+     *    1.任何数和0做异或运算，结果仍然是原来的数，即 a⊕0=a
+     *    2.任何数和其自身做异或运算，结果是0，即 a⊕a=0
+     *    3.异或运算满足交换律和结合律，即 a⊕b⊕a=b⊕a⊕a=b⊕(a⊕a)=b⊕0=b
+     * 
+     * 因此该题我们可通过上述异或运算得出：
+     *   (a1⊕a1)⊕(a2⊕a2)⊕.....⊕(am⊕am)⊕an=an
+     * 
+     * 因此我们可通过异或运算解决该题
+     */
+    let single=0;
+    nums.forEach((value)=>{
+        single^=value
+    })
+    return single
 }
