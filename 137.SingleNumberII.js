@@ -4,7 +4,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-10-11 09:05:20
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-10-12 15:13:42
+ * @LastEditTime: 2023-10-12 15:17:00
  */
 
 
@@ -39,3 +39,25 @@ function hashMap(nums) {
     }
 }
 
+
+/**
+ * @description: 真值表  TC:O(n)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} nums  给定数组
+ * @return {*}
+ */
+function truthTable(nums){
+    /**
+     * 该方案利用计算真值表的方式实现，
+     * 需要一定的电子信息的基础，通过
+     * 给定输入/输出设计真值表，从而得
+     * 出逻辑表达式，满足该真值表，下述
+     * 公式则从真值表得出。
+     */
+    let a = 0, b = 0;
+    for (const num of nums) {
+        b = ~a & (b ^ num);
+        a = ~b & (a ^ num);
+    }
+    return b;
+}
