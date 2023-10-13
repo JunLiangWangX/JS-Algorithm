@@ -7,7 +7,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-10-13 09:47:13
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-10-13 09:55:25
+ * @LastEditTime: 2023-10-13 09:59:55
  */
 
 
@@ -55,4 +55,45 @@ function hashMap(head) {
     }
     // 返回结果
     return HEAD.next;
+}
+
+
+/**
+ * @description: 间隔插入  TC:O(n)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} head 给定链表头节点
+ * @return {*}
+ */
+function intervalInsertion(head){
+    /**
+     * 该方案使用间隔插入的方式，构建新链表并
+     * 间隔插入到原链表中，新节点的random则等
+     * 于旧节点的random的next，遍历更新新节点
+     * 的random属性为新节点，然后再次遍历依次
+     * 取出新节点即可
+     */
+
+    if(!head)return null;
+    // 给链表两节点间隙插入新的节点，例如:
+    // 源链表 A-B-C
+    // 插入后 A-A'-B-B'-C-C'
+    for(let node=head;node!=null;node=node.next.next){
+        const newNode=new Node(node.val,node.next,null);
+        node.next=newNode;
+    }
+    // 给新节点的随机节点赋值，由于是间隙插入的新节点，
+    // 因此新节点的随机节点则等于旧节点的随机节点的next
+    for(let node=head;node!=null;node=node.next.next){
+        const newNode=node.next;
+        newNode.random=node.random?node.random.next:null
+    }
+    // 取出新节点，还原旧链表
+    const HEAD=head.next;
+     for (let node = head; node !== null; node = node.next) {
+        const nodeNew = node.next;
+        node.next = node.next.next;
+        nodeNew.next = (nodeNew.next !== null) ? nodeNew.next.next : null;
+    } 
+    // 返回结果
+    return HEAD;
 }
