@@ -4,13 +4,13 @@
  * @Author: JunLiangWang
  * @Date: 2023-10-17 09:13:16
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-10-17 09:33:36
+ * @LastEditTime: 2023-10-17 09:36:23
  */
 
 
 
 /**
- * @description: 递归回溯   TC:O(2^n)  SC:O(n)
+ * @description: 递归回溯   TC:O(2^n*n)  SC:O(n)
  * @author: JunLiangWang
  * @param {*} s   给定字符串s
  * @param {*} wordDict 给定字典
