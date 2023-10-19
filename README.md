@@ -45,6 +45,7 @@ Use js to implement leetcode algorithm
 | [#139](https://leetcode.cn/problems/word-break/description/) | [WordBreak](https://github.com/JunLiangWangX/js-algorithm/blob/main/139.WordBreak.js) | 给你一个字符串 `s` 和一个字符串列表 `wordDict` 作为字典。请你判断是否可以利用字典中出现的单词拼接出 `s` 。 | Given a string `s` and a dictionary of strings `wordDict`, return `true` if `s` can be segmented into a space-separated sequence of one or more dictionary words. |
 | [#140](https://leetcode.cn/problems/word-break-ii/description/) | [[WordBreakII]](https://github.com/JunLiangWangX/js-algorithm/blob/main/140.WordBreakII.js) | 给定一个字符串 `s` 和一个字符串字典 `wordDict` ，在字符串 `s` 中增加空格来构建一个句子，使得句子中所有的单词都在词典中。**以任意顺序** 返回所有这些可能的句子。 | Given a string `s` and a dictionary of strings `wordDict`, add spaces in `s` to construct a sentence where each word is a valid dictionary word. Return all such possible sentences in **any order**. |
 | [#141](https://leetcode.cn/problems/linked-list-cycle/description/) | [LinkedListCycle](https://github.com/JunLiangWangX/js-algorithm/blob/main/141.LinkedListCycle.js) | 给你一个链表的头节点 head ，判断链表中是否有环。             | Given `head`, the head of a linked list, determine if the linked list has a cycle in it. |
+| [#142](https://leetcode.cn/problems/linked-list-cycle-ii/description/) | [LinkedListCycleII](https://github.com/JunLiangWangX/js-algorithm/blob/main/142.LinkedListCycleII.js) | 给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。 | Given the `head` of a linked list, return *the node where the cycle begins. If there is no cycle, return* `null`. |
 
 
 
