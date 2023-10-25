@@ -49,6 +49,7 @@ Use js to implement leetcode algorithm
 | [#143](https://leetcode.cn/problems/reorder-list/description/) | [ReorderList](https://github.com/JunLiangWangX/js-algorithm/blob/main/143.ReorderList.js) | 重排链表                                                     | Reorder list                                                 |
 | [#144](https://leetcode.cn/problems/binary-tree-preorder-traversal/description/) | [BinaryTreePreorderTraversal](https://github.com/JunLiangWangX/js-algorithm/blob/main/144.BinaryTreePreorderTraversal.js) | 给你二叉树的根节点 `root` ，返回它节点值的 **前序** 遍历。   | Given the `root` of a binary tree, return *the preorder traversal of its nodes' values*. |
 | [#145](https://leetcode.cn/problems/binary-tree-postorder-traversal/description/) | [BinaryTreePostorderTraversal](https://github.com/JunLiangWangX/js-algorithm/blob/main/145.BinaryTreePostorderTraversal.js) | 给你一棵二叉树的根节点 `root` ，返回其节点值的 **后序遍历** 。 | Given the `root` of a binary tree, return *the postorder traversal of its nodes' values*. |
+| [#146](https://leetcode.cn/problems/lru-cache/)              | [LRUCache](https://github.com/JunLiangWangX/js-algorithm/blob/main/146.LRUCache.js) | 请你设计并实现一个满足 [LRU (最近最少使用) 缓存](https://baike.baidu.com/item/LRU) 约束的数据结构。 | Design a data structure that follows the constraints of a Least Recently Used (LRU) cache. |
 
 
 
