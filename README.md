@@ -52,6 +52,7 @@ Use js to implement leetcode algorithm
 | [#146](https://leetcode.cn/problems/lru-cache/)              | [LRUCache](https://github.com/JunLiangWangX/js-algorithm/blob/main/146.LRUCache.js) | 请你设计并实现一个满足 [LRU (最近最少使用) 缓存](https://baike.baidu.com/item/LRU) 约束的数据结构。 | Design a data structure that follows the constraints of a Least Recently Used (LRU) cache. |
 | [#147](https://leetcode.cn/problems/insertion-sort-list/description/) | [InsertionSortList](https://github.com/JunLiangWangX/js-algorithm) | 给定单个链表的头 `head` ，使用 **插入排序** 对链表进行排序，并返回 *排序后链表的头* 。 | Given the `head` of a singly linked list, sort the list using **insertion sort**, and return *the sorted list's head*. |
 | [#148](https://leetcode.cn/problems/sort-list/description/)  | [SortList](https://github.com/JunLiangWangX/js-algorithm/blob/main/148.SortList.js) | 给你链表的头结点 `head` ，请将其按 **升序** 排列并返回 **排序后的链表** 。 | Given the `head` of a linked list, return *the list after sorting it in **ascending order***. |
+| [#149](https://leetcode.cn/problems/max-points-on-a-line/description/) | [MaxPointsonaLine](https://github.com/JunLiangWangX/js-algorithm/blob/main/149.MaxPointsonaLine.js) | 给你一个数组 `points` ，其中 `points[i] = [xi, yi]` 表示 **X-Y** 平面上的一个点。求最多有多少个点在同一条直线上。 | Given an array of `points` where `points[i] = [xi, yi]` represents a point on the **X-Y** plane, return *the maximum number of points that lie on the same straight line*. |
 
 
 
