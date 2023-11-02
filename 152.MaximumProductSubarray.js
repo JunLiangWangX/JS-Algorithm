@@ -29,3 +29,23 @@ function bruteForce(nums){
     }
     return maxProduct
 }
+
+
+/**
+ * @description: 动态规划  TC:O(n)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} nums 给定数组
+ * @return {*}
+ */
+function dp(nums){
+    let maxProduct=nums[0],
+    negativeProduct=nums[0],
+    positiveProduct=nums[0];
+    for(let i=1;i<nums.length;i++){
+        let temp1 = positiveProduct * nums[i],temp2 = negativeProduct * nums[i];
+        positiveProduct=Math.max(temp1,temp2,nums[i]);
+        negativeProduct=Math.min(temp1,temp2,nums[i]);
+        maxProduct=Math.max(maxProduct,positiveProduct,negativeProduct)
+    }
+    return maxProduct;
+}
