@@ -4,7 +4,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-11-07 09:48:34
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-11-07 09:51:57
+ * @LastEditTime: 2023-11-07 09:56:27
  */
 
 
@@ -41,4 +41,29 @@ function sort(nums){
         else count=1;
     }
     return null
+}
+
+
+/**
+ * @description: 摩尔投票法  TC:O(n)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} nums 给定数组
+ * @return {*}
+ */
+function BoyerMoore(nums){
+    /**
+     * 该方案使用摩尔投票法，本题描述的多数元素
+     * 是指在数组中出现次数 大于 ⌊ n/2 ⌋ 的元素。
+     * 也就是说，当我删除数组中任意两个不同的元素
+     * 这个数组的多数元素还是不会变得，因此利用这
+     * 个特性，我们可以很巧妙的写出算法
+     */
+    
+    let candidate=0,count=0;
+    for(let num of nums){
+        if(count==0)candidate=num
+        if(candidate==num)count++
+        else count--;
+    }
+    return candidate
 }
