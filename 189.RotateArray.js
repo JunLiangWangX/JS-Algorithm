@@ -4,7 +4,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-11-08 09:28:48
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-11-08 09:36:08
+ * @LastEditTime: 2023-11-08 09:45:19
  */
 
 
@@ -31,4 +31,49 @@ function array(nums, k){
         index++;
         if(index>=nums.length)index=0
     }
+}
+
+
+/**
+ * @description: 翻转   TC:O(n)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} nums  给定数组
+ * @param {*} k     轮转的位数
+ * @return {*}
+ */
+function reverseArray(nums,k){
+    /**
+     * 本方案使用翻转数组的方案，与上同理首先
+     * 对使用数组长度对k进行取余 ，获得轮转恢
+     * 复原样N次后，仍需要移动多少位。然后我们
+     * 看如下示例：
+     *    nums=[1,2,3,4,5,6,7],k=3
+     * 
+     * 对数组0到n-1进行翻转：
+     *    nums=[7,6,5,4,3,2,1]
+     * 对数组0到k-1进行翻转：
+     *    nums=[5,6,7,4,3,2,1]
+     * 对数组k到n-1进行翻转：
+     *    nums=[5,6,7,1,2,3,4]
+     * 
+     * 此时我们就获得了答案，因此仅需对数组进行
+     * 如下翻转操作即可得到答案
+     *   reverse(0,n-1)
+     *   reverse(0,k-1)
+     *   reverse(k,n-1)
+     */
+    let index=k%nums.length;
+    if(index==0)return ;
+    function reverse(start,end){
+        while(start<end){
+            let temp=nums[start]
+            nums[start]=nums[end]
+            nums[end]=temp
+            start++;
+            end--;
+        }
+    }
+    reverse(0,nums.length-1)
+    reverse(0,index-1)
+    reverse(index,nums.length-1)
 }
