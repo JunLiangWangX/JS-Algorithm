@@ -4,7 +4,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-11-09 09:37:27
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-11-09 09:41:43
+ * @LastEditTime: 2023-11-09 09:52:20
  */
 
 
@@ -29,4 +29,40 @@ function sort(citations){
     while(i+1<=citations[i]&&i<=citations.length)i++
     
     return i
+}
+
+
+/**
+ * @description: 计数排序  TC:O(n)  SC:O(n)
+ * @author: JunLiangWang
+ * @param {*} citations  给定数组
+ * @return {*}
+ */
+function countSort(citations){
+    /**
+     * 本方案使用计数排序的方式，对于N篇文章而言
+     * 其引用次数可能为[0,1,2,3....,>=n]，我们
+     * 可以根据此定义一个数组，其长度为n+1,索引
+     * [0至n-1]分别记录引用次数0至(n-1)的文章，
+     * 索引n则记录引用次数>=n的文章，根据上述规
+     * 则遍历数组记录。
+     * 
+     * 最后我们从后向前遍历数组，当文章的篇数
+     * 大于等于文章的引用时即为h指数
+     */
+    let len=citations.length,
+    recordArray=new Array(len+1).fill(0);
+
+    for(let i=0;i<len;i++){
+        if(citations[i]>=len)recordArray[len]++
+        else  recordArray[citations[i]]++
+    }
+
+    let total=0
+    for(let i=len;i>=0;i--){
+        total+=recordArray[i]
+        if(total>=i)return i
+    }
+
+    return 0
 }
