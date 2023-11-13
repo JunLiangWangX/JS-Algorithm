@@ -4,7 +4,7 @@
  * @Author: JunLiangWang
  * @Date: 2023-11-13 14:47:24
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2023-11-13 14:59:04
+ * @LastEditTime: 2023-11-13 15:11:08
  */
 
 
@@ -14,7 +14,7 @@
  * @param {*} nums 给定数组
  * @return {*}
  */
-function twoArray(nums){
+function twoArray(nums) {
     /**
      * 本方案采用双数组的方式，定义左右两数组leftArray,rightArray长度与
      * nums一致。
@@ -34,35 +34,76 @@ function twoArray(nums){
 
 
     //定义左右两数组leftArray,rightArray长度与nums一致。
-    let leftArray=new Array(nums.length),
-    rightArray=new Array(nums.length),
-    outArray=new Array(nums.length);
+    let leftArray = new Array(nums.length),
+        rightArray = new Array(nums.length),
+        outArray = new Array(nums.length);
     // 初始化左数组[0]为1
-    leftArray[0]=1;
+    leftArray[0] = 1;
     // 初始化右数组最后一个元素为1
-    rightArray[nums.length-1]=1;
+    rightArray[nums.length - 1] = 1;
 
-    let index=0;
+    let index = 0;
     // 遍历计算左数组元素值：
     // 左数组i处元素leftArray[i]为nums的[0至i-1]的乘积
-    while(index<nums.length-1){
-         leftArray[index+1]=leftArray[index]*nums[index]
-         index++;
+    while (index < nums.length - 1) {
+        leftArray[index + 1] = leftArray[index] * nums[index]
+        index++;
     }
     // 遍历计算右数组元素值：
     // 右数组i处元素rightArray[i]为nums的[i+1,nums.length-1]的乘积
-    index=nums.length-1;
-    while(index>0){
-       rightArray[index-1]=rightArray[index]*nums[index]
-       index--;
-    } 
+    index = nums.length - 1;
+    while (index > 0) {
+        rightArray[index - 1] = rightArray[index] * nums[index]
+        index--;
+    }
     // 遍历计算结果：
     // 除 nums[i] 之外其余各元素的乘积则为：leftArray[i]*rightArray[i]
-    index=0;
-    while(index<nums.length){
-        outArray[index]=leftArray[index]*rightArray[index]
+    index = 0;
+    while (index < nums.length) {
+        outArray[index] = leftArray[index] * rightArray[index]
         index++;
     }
     // 返回结果
     return outArray;
+}
+
+
+/**
+ * @description: 单数组 TC:O(n)  SC:O(1)
+ * @author: JunLiangWang
+ * @param {*} nums 给定数组
+ * @return {*}
+ */
+function singleArray(nums) {
+    /**
+     * 我们可以对上述方案进行优化，使用一个数组即可完成
+     */
+
+
+    //定义结果数组长度与nums一致。
+    let outArray = new Array(nums.length);
+    // 初始化数组[0]为1
+    outArray[0] = 1;
+
+    // 遍历计算左数组元素值：
+    // 左数组i处元素outArray[i]为nums的[0至i-1]的乘积
+    let index = 0;
+    while (index < nums.length - 1) {
+        outArray[index + 1] = outArray[index] * nums[index]
+        index++;
+    }
+    index = nums.length - 1;
+    // 定义变量记录nums的[i+1,nums.length-1]的乘积
+    let rightResult = 1;
+
+    // 遍历计算右数组元素值并直接计算结果
+    while (index >= 0) {
+        // 除 nums[i] 之外其余各元素的乘积则为：outArray[i]*rightResult
+        outArray[index] *= rightResult
+        //更新nums的[i+1,nums.length-1]的乘积
+        rightResult *= nums[index]
+        index--;
+    }
+    // 返回结果
+    return outArray
 }
