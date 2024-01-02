@@ -6,7 +6,7 @@
  * @Author: JunLiangWang
  * @Date: 2024-01-02 09:45:27
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2024-01-02 10:09:08
+ * @LastEditTime: 2024-01-02 10:11:33
  */
 
 
@@ -87,4 +87,52 @@ function dfs(numCourses, prerequisites){
     }
     // 如果所有课程的不存在环，则证明该有向图是无环有向图，返回true
     return true
+}
+
+
+/**
+ * @description: 广度优先   TC:O(n+m)  SC:O(n+m)
+ * @author: JunLiangWang
+ * @param {*} numCourses    给定课程数量
+ * @param {*} prerequisites 给定课程关系数组 
+ * @return {*}
+ */
+function bfs(numCourses, prerequisites){
+    
+    //本题其实就是判断该有向图是否为有向无环图，也就是使用
+    //拓扑排序将有向无环图转成线性的排序
+
+     // 定义入度数组
+     let inDegreee=new Array(numCourses).fill(0),
+     // 邻接表，记录各课程关系
+     relationMap=new Map()                 
+     // 遍历课程关系数组       
+     for(let item of prerequisites){
+         // 求课程的入度值
+         inDegreee[item[0]]++    
+         // 记录两课程关系，当item[1]出度时，所影响的课程
+         let courseList = relationMap.get(item[1]) || []
+         courseList.push(item[0])
+         relationMap.set(item[1], courseList)
+     }
+     // 定义队列
+     let quene=[];
+     // 将入度为0的课程放入队列中
+     inDegreee.forEach((val,index)=>{
+         if(val==0)quene.push(index)
+     })
+     // 入度为0的课程
+     let count=0
+     while(quene.length){
+         let course=quene.shift(),     // 把入度为0的课程出队
+         courseList=relationMap.get(course); // 获取这门课对应的后续课
+         count++;  // 选课数+1
+         if(!courseList||courseList.length==0)continue; //如果为空或为0直接跳过
+         courseList.forEach((val)=>{
+             inDegreee[val]--;  // 依赖它的后续课的入度-1
+             if(inDegreee[val]==0)quene.push(val) // 如果因此减为0，入列
+         })
+     }
+     // 选了的课等于总课数，true，否则false
+     return count==numCourses
 }
