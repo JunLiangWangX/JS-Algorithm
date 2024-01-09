@@ -3,11 +3,12 @@
  * @Author: JunLiangWang
  * @Date: 2024-01-09 10:08:51
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2024-01-09 10:13:46
+ * @LastEditTime: 2024-01-09 10:17:03
  */
 
 /**
- * 字典前缀树
+ * 字典前缀树，大家可以百度一下看看什么是前缀树，
+ * 这个整体实现起来也比较简单。
  */
 var Trie = function () {
     this.tree = {
