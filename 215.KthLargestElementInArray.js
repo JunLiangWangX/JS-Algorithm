@@ -4,7 +4,7 @@
  * @Author: JunLiangWang
  * @Date: 2024-01-18 09:53:12
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2024-01-18 10:04:48
+ * @LastEditTime: 2024-01-18 10:06:42
  */
 
 
@@ -66,4 +66,17 @@ function fastSort(nums, k){
     }
     // 返回结果
     return recursion(0, nums.length - 1)[k - 1]
+}
+
+
+/**
+ * @description: 使用JS提供的API
+ * @author: JunLiangWang
+ * @param {*} nums 给定数组
+ * @param {*} k    返回第k大元素
+ * @return {*}
+ */
+function builtInMethods(nums,k){
+    nums.sort((a,b)=>b-a)
+    return nums[k-1]
 }
