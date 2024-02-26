@@ -4,7 +4,7 @@
  * @Author: JunLiangWang
  * @Date: 2024-02-26 09:47:12
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2024-02-26 09:50:02
+ * @LastEditTime: 2024-02-26 09:55:28
  */
 
 
@@ -21,4 +21,25 @@ function convertBinaryString(n){
     let count=0,binaryString=n.toString(2);
     for(let i=0;i<binaryString.length;i++)binaryString[i]=='1'&&count++
     return count
+}
+
+
+/**
+ * @description: 位运算  TC:O(logn)  SC:O(1)
+ * @param {*} n 给定无符号整数
+ * @return {*}
+ */
+function bitOperations(n){
+    /**
+     * 本方案使用位运算的性质加速我们的检查过程，我们不断让当前的
+     * n 与 n−1 做与运算，直到 n 变为 0 即可。因为每次运算会使得
+     * n 的最低位的 1 被翻转，因此运算次数就等于 n 的二进制位中 
+     * 1 的个数。
+     */
+    let count = 0;
+    while (n) {
+        n &= n - 1;
+        count++;
+    }
+    return count;
 }
