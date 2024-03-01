@@ -5,7 +5,7 @@
  * @Author: JunLiangWang
  * @Date: 2024-03-01 16:39:30
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2024-03-01 16:54:31
+ * @LastEditTime: 2024-03-01 17:01:34
  */
 
 
@@ -48,4 +48,58 @@ function dfs(coins, amount) {
     recursion(amount, 0)
     // 返回结果
     return minCount == Infinity ? -1 : minCount;
+}
+
+/**
+ * @description: 深度优先+剪枝  TC:O(n^2)  SC:O(n)
+ * @param {*} coins  给定整数数组
+ * @param {*} amount 给定整数
+ */
+function DFSAndPruningWay(coins, amount) {
+    /**
+     * 上述方案是会超时的，这是因为递归过程中会进行大
+     * 量的重复计算，我们可以利用map记录下已经计算过
+     * 的金额的最小组成硬币数，后续递归就无需再次计算
+     * 以此优化时间复杂度
+     */
+
+    // 利用map记录已经计算过的金额的最小组成硬币数
+    let cache = new Map()
+
+    /**
+     * @description: 递归实现深度优先
+     * @param {*} diff 当前剩余总金额
+     */    
+    function recurison(diff) {
+        // 如果当前剩余总金额等于0，证明硬币能够
+        // 组成总金额，结束递归返回0
+        if (diff == 0) return 0;
+        // 如果当前剩余总金额小于0证明硬币无法组
+        // 成总金额，结束递归返回-1
+        if (diff < 0) return -1;
+        // 如果当前剩余总金额已经计算过，
+        // 则返回已经计算过的金额的最小
+        // 组成硬币数
+        if (cache.has(diff)) return cache.get(diff);
+
+        let minCount = Infinity;
+        
+        // 否则，不断对amount减去所有硬币面额，继续递归
+        for (let coin of coins) {
+            subCount = recurison(diff - coin)
+            // 如果返回不等于-1，证明硬币能够
+            // 组成总金额，记录比较最小硬币数
+            if (subCount != -1) minCount = Math.min(minCount, subCount + 1)
+            // 否则则无法组成总金额，无需处理
+        }
+        // 如果minCount还是等于Infinity，证明
+        // 无法组成总金额，将minCount置为-1
+        if (minCount == Infinity) minCount = -1
+        // 存储当前总金额的计算结果
+        cache.set(diff, minCount)
+        // 返回结果
+        return minCount
+    }
+    // 执行递归，返回结果
+    return recurison(amount);
 }
