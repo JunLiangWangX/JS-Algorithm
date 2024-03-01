@@ -5,7 +5,7 @@
  * @Author: JunLiangWang
  * @Date: 2024-03-01 16:39:30
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2024-03-01 17:01:34
+ * @LastEditTime: 2024-03-01 17:23:29
  */
 
 
@@ -103,3 +103,25 @@ function DFSAndPruningWay(coins, amount) {
     // 执行递归，返回结果
     return recurison(amount);
 }
+
+/**
+ * @description: 动态规划  TC:O(n^2)  SC:O(n)
+ * @param {*} coins  给定整数数组
+ * @param {*} amount 给定整数
+ */
+function dp(coins, amount) {
+    /**
+     * 本方案使用DP，DP通常就是剪枝的回溯过程，DFS是
+     * 自顶向下，然DP则是自底向上，因此如果理解了上述
+     * 两种方案，DP自然是很好理解的
+     */
+    let DPArray = new Array(amount + 1).fill(amount + 1)
+    DPArray[0] = 0
+    for (let i = 1; i < DPArray.length; i++) {
+        for (let coin of coins) {
+            if (i - coin < 0) continue;
+            DPArray[i] = Math.min(DPArray[i], 1 + DPArray[i - coin])
+        }
+    }
+    return DPArray[amount] == amount + 1 ? -1 : DPArray[amount]
+};
