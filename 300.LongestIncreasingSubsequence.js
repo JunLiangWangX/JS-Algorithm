@@ -6,7 +6,7 @@
  * @Author: JunLiangWang
  * @Date: 2024-03-02 09:48:18
  * @LastEditors: JunLiangWang
- * @LastEditTime: 2024-03-02 09:57:08
+ * @LastEditTime: 2024-03-02 10:00:04
  */
 
 
@@ -44,4 +44,40 @@ function dp(nums) {
     }
     // 返回结果
     return maxLength;
+}
+
+/**
+ * @description: 贪心+二分  TC:O(nlogn) SC:O(n)
+ * @param {*} nums 给定数组
+ */
+function greedyAndBinarySearch(nums){
+    /**
+     * 本方案使用贪心+二分，详细原理可看这篇文章：
+     * https://writings.sh/post/longest-increasing-subsequence-revisited
+     * 解释得非常清楚
+     */
+    let sortArray=[nums[0]]
+    /**
+     * @description: 二分查找并替换
+     * @param {*} num 给定整数
+     */    
+    function replace(num){
+        if(sortArray.length==1)sortArray[0]=num
+        let left=0,right=sortArray.length-1
+        while(left<=right){
+            let mid=Math.floor((left+right)/2)
+            if(sortArray[mid]==num)return 
+            if(sortArray[mid]>num)right=mid-1
+            else left=mid+1
+        }
+        sortArray[left]=num
+    }
+    // 遍历数组
+    for(let i=1;i<nums.length;i++){
+        let item=sortArray[sortArray.length-1]
+        if(nums[i]>item)sortArray.push(nums[i])
+        else if(nums[i]<item)replace(nums[i])
+    }
+    // 返回结果
+    return sortArray.length
 }
