@@ -1,0 +1,41 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+            fetch-depth: 0
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+            node-version: 18.x
+      - run: npm i
+      - run: npm run docs:build --if-present 
+      
+      - if: ${{ github.event_name == 'push' && success() }}
+        name: Publish HTML to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.SECRET }}
+          publish_dir: ./public
+          enable_jekyll: false
+          
+      - if: ${{ github.event_name == 'push' && success() }}
+        name: deploy file to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: 'root'
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: './public/*'
+          target: "/home/www/htdocs/wangjunliang/JS-Algorithm/"
+          strip_components: 1
