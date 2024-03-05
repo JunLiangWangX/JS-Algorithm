@@ -1,10 +1,4 @@
-# JS-Algorithm
-Learn a JS algorithm every day.（每天学习一个JS算法）
-
-
-
-
-## Prerequisite Knowledge（前置知识）
+# 前置知识
 
 | 题目编号(topic number) | 文件名(file name)                                            | 描述                         | description                                                  |
 | ---------------------- | ------------------------------------------------------------ | ---------------------------- | ------------------------------------------------------------ |
@@ -13,8 +7,3 @@ Learn a JS algorithm every day.（每天学习一个JS算法）
 | 101~150                | [General-Questions-Part3](https://github.com/JunLiangWangX/js-algorithm/tree/main/General-Questions-Part3) | 普通题：题101到题150归档集合 | GeneralQuestion：Question 101 to Question 150 archive collection |
 | Sword Pointing Offer   | [Sword-Pointing-Offer](https://github.com/JunLiangWangX/js-algorithm/tree/main/Sword-Pointing-Offer) | 剑指offer系列                | Sword pointing offer series                                  |
 
-
-
-## Advanced knowledge（进阶知识）
-
-[Click to View](https://wangjunliang.com/JS-Algorithm)
