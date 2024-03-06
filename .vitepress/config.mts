@@ -63,7 +63,7 @@ export default withPwa(defineConfig({
   head: [
     [
       'link',
-      { rel: 'icon', href: './logo.svg' }
+      { rel: 'icon', href: './logo.png' }
     ],
     [
       'script',
@@ -136,7 +136,7 @@ export default withPwa(defineConfig({
     outDir: '../public',
     base: '/JS-Algorithm/',
     scope: '/JS-Algorithm/',
-    includeAssets: ['logo.svg'],
+    includeAssets: ['logo.png'],
     manifest: {
       name: 'JS每日一算法',
       short_name: 'JS每日一算法',
@@ -144,27 +144,27 @@ export default withPwa(defineConfig({
       theme_color: '#ffffff',
       icons: [
         {
-          src: 'logo.svg',
+          src: 'logo.png',
           sizes: '32x32',
           type: 'image/png',
         },
         {
-          src: 'logo-64.svg',
+          src: 'logo-64.png',
           sizes: '64x64',
           type: 'image/png',
         },
         {
-          src: 'logo-128.svg',
+          src: 'logo-128.png',
           sizes: '128x128',
           type: 'image/png',
         },
         {
-          src: 'logo-256.svg',
+          src: 'logo-256.png',
           sizes: '256x256',
           type: 'image/png',
         },
         {
-          src: 'logo-512.svg',
+          src: 'logo-512.png',
           sizes: '512x512',
           type: 'image/png',
         },
