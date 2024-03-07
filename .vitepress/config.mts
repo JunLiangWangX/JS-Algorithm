@@ -117,6 +117,7 @@ export default withPwa(defineConfig({
       pattern: 'https://github.com/JunLiangWangX/JS-Algorithm/edit/main/src/:path'
     },
     nav: [
+      { text: '关注作者', link: 'https://wangjunliang.com/wechat' },
       { text: '支持作者', link: 'https://wangjunliang.com/#/supportBloggers' },
       { text: '了解作者', link: 'https://wangjunliang.com/' },
     ],
